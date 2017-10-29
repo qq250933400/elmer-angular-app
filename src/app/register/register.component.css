@@ -1,0 +1,205 @@
+
+.reg_title{
+    display: block;
+    padding: 20px 10%;
+    text-align: center;
+    color:#0a3369;
+    font-size:16px;
+}
+.reg_fields {
+    list-style: none;
+    padding: 20px;
+    margin:0;
+}
+.reg_fields li {
+    display: block;
+    min-height: 25px;
+    line-height: 25px;
+    position: relative;
+    padding-left: 100px;
+    margin-top: 5px;
+}
+.reg_fields li > span {
+    display: block;
+    min-height: 25px;
+    line-height: 25px;
+    width: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size:14px;
+    color:#0a3369;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.reg_fields li > span > i {
+    display: block;
+    line-height: 10px;
+    font-size: 8px;
+    color:#999;
+    font-weight: normal;
+    font-style: normal;
+}
+.reg_fields input[type=text] {
+    border: 1px solid #bcbcbc;
+    -webkit-box-shadow: 0 1px 2px rgba(188,188,188,0.8) inset;
+    -moz-box-shadow: 0 1px 2px rgba(188,188,188,0.8) inset;
+    -ms-box-shadow: 0 1px 2px rgba(188,188,188,0.8) inset;
+    box-shadow: 0 1px 2px rgba(188,188,188,0.8) inset;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+    padding: 6px 5px;
+    font-size: 14px;
+    width: 100%;
+}
+.reg_fields input[type=text],
+.reg_field_vertify input[type=button],
+.reg_fields select,
+.prc_select,
+.prc_reg_media_type a,
+.prc_reg_fav a,
+.prc_reg_sumit {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-appearance: none;
+}
+.reg_fields input[type=text]:hover,.reg_fields input[type=text]:focus{
+    border-color:#1857aa;
+    -webkit-box-shadow: 0 1px 2px #1857aa inset;
+    -moz-box-shadow: 0 1px 2px #1857aa inset;
+    -ms-box-shadow: 0 1px 2px #1857aa inset;
+    box-shadow: 0 1px 2px #1857aa inset;
+}
+.reg_field_vertify input[type=text] {
+    width: 100px;
+}
+.reg_field_vertify input[type=button] {
+    width: 50px;
+    border:0;
+    padding: 6px 5px;
+    outline: none;
+    background: #468fcb;
+    color:#fff;
+    float:right;
+}
+.reg_field_vertify input[type=button]:hover{
+    background: rgb(84, 172, 243);
+}
+.reg_field_vertify input[type=button]:active{
+    background: #3678af;
+}
+.reg_field_vertify input[type=button]:disabled{
+    background: #727272;
+}
+
+.reg_fields select {
+    border: 0;
+    outline: none;
+    padding: 6px 5px;
+    padding-right: 50px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: url(../../assets/prc/select-tag.png) no-repeat right center;
+    background-size: 16px 18px;
+}
+.prc_select {
+    display: inline-block;
+    border: 1px solid #bcbcbc;
+    background: url(../../assets/prc/select-bk.jpg) repeat-x;
+    background-size: 100% 100%;
+    overflow: hidden;
+    position: relative;
+}
+.prc_select > i {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    font-size:12px;
+    color:#999;
+    position: absolute;
+    right: 20px;
+    top: 0;
+    font-style: normal;
+}
+.prc_reg_province,
+.prc_reg_city {
+    width: 48%;
+}
+.prc_reg_province select,
+.prc_reg_city select{
+    width: 100%;
+}
+.prc_reg_city {
+    float: right;
+}
+.prc_reg_media_type,.prc_reg_fav {
+    display: block;
+    position: relative;
+}
+.prc_reg_media_type a:first-child{margin-left: 0;}
+.prc_reg_media_type a,
+.prc_reg_fav a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 5px 8px;
+    border: 1px solid #bcbcbc;
+    background: #fff;
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: normal;
+    cursor: pointer;
+    color:#333;
+}
+.prc_reg_media_type .active,
+.prc_reg_fav .active {
+    background: #0a3369;
+    border-color:#0a3369;
+    color:#fff;
+}
+.prc_reg_fav > div {
+    position: relative;
+    padding-left: 85px;
+    min-height: 30px;
+}
+.prc_reg_fav a {
+    position: absolute;
+    width: 80px;
+    text-align: center;
+    left:0;
+    top:0;
+    margin-left: 0;
+    margin-top: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.prc_reg_fav div > i {
+    display: block;
+    min-height: 30px;
+    line-height: 18px;
+    font-style:normal;
+    font-size:12px;
+    margin: 5px 0;
+    color: #666;
+}
+
+.prc_reg_sumit{
+    background: #468fcb;
+    color:#fff;
+    border:0;
+    -webkit-appearance: none;
+    padding: 8px 30px;
+    margin: 10px auto;
+    outline: none;
+}
+.prc_reg_sumit:hover {
+    background: #51a1e2;
+}
+.prc_reg_sumit:active {
+    background: #3f8cc7;
+}

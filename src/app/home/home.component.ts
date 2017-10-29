@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../services/app.service';
+import { HomeModule } from './home.module';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -7,13 +8,13 @@ import { AppService } from '../../services/app.service';
 })
 export class HomeComponent implements OnInit {
     title = 'app';
-    constructor(private appService: AppService){
+    constructor(private appService: AppService) {
 
     }
-    ngOnInit():void{
-        this.appService.demo().then((res)=>{
+    ngOnInit(): void {
+        this.appService.demo().then((res) => {
             console.log(res);
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         });
     }

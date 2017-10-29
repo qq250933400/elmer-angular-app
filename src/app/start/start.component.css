@@ -1,0 +1,45 @@
+.prc_back {
+    display: block;
+    background: url(../../assets/prc/background.jpg) repeat-x;
+    background-size: 100%;
+    min-height: 100%;
+}
+.prc_start_logo{
+    display: block;
+    max-width: 70%;
+    margin: 0 auto;
+    padding-top: 60px;
+}
+.prc_start_logo img {display: block; width: 100%;}
+
+.prc_start_tip {
+    display: block;
+    margin: 60px 10%;
+    font-size: 1.2em;
+    text-align: center;
+    line-height: 1.2em;
+    color: #0A3369;
+}
+.prc_start_button{
+    display: block;
+    background: #0A3369;
+    color: #fff;
+    border:0;
+    margin: 0 auto;
+    padding: 15px 10px;
+    outline: none;
+    font-size: 1.1em;
+    width: 180px;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-appearance: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+}
+.prc_start_button:hover {
+    background: rgb(31, 91, 168);
+}

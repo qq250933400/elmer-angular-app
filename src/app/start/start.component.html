@@ -1,0 +1,13 @@
+<div class="prc_reg_back">
+    <div class="prc_back">
+        <div>
+            <a href="javascript:void(0);" class="prc_start_logo">
+                <img [src]="logo" />
+            </a>
+            <span class="prc_start_tip">{{tipText}}</span>
+            <button (click)="onMediaTypeClick()" class="prc_start_button" routerLink="/prc/register">{{mediaTypeStr}}</button>
+            <button (click)="onWineLoverClick()" class="prc_start_button" routerLink="/prc/register" style="margin-top:25px;">{{wineLoversTypeStr}}</button>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="isLoading"></app-loading>

@@ -1,0 +1,51 @@
+<div class="prc_reg_back">
+    <div class="prc_back">
+        <div>
+            <h4 class="reg_title">{{title}}</h4>
+            <ul class="reg_fields">
+                <li><span>{{field_Name}}</span><div><input type="text" (ngModelChange)="inputChange($event,'userName')" [ngModel]="userName" [value]="userName"/></div></li>
+                <li><span>{{field_Phone}}</span><div><input name="username" (keydown)="mobileKeyDown($event)" (ngModelChange)="mobileChange($event)" [ngModel]="mobilePhoneDisplay" type="text" [value]="mobilePhoneDisplay" /></div></li>
+                <li class="reg_field_vertify"><span>{{field_VertifyCode}}</span><div><input type="text" (ngModelChange)="inputChange($event,'vertifyCode')" [ngModel]="vertifyCode" [value]="vertifyCode"/><input type="button" value="{{btnGetStr}}"/></div></li>
+                <li>
+                    <span>{{field_Location}}</span>
+                    <div>
+                        <div class="prc_select prc_reg_province">
+                            <select [(ngModel)]="selectProvince" (change)="provinceChange()">
+                                <option *ngFor="let pro of province" [ngValue]="pro" >{{pro.name}}</option>
+                            </select>
+                            <i>{{provinceStr}}</i>
+                        </div>
+                        <div class="prc_select prc_reg_city">
+                            <select [(ngModel)]="selectCity">
+                                <option *ngFor="let tmpCity of city" [ngValue]="tmpCity">{{tmpCity.name}}</option>
+                            </select>
+                            <i>{{cityStr}}</i>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <span>{{field_Birthday}}</span>
+                    <div>
+                        <div class="prc_select"><select [(ngModel)]="selectBirthDayMonth"><option *ngFor="let tmpMonth of month" [ngValue]="tmpMonth.id">{{tmpMonth.value}}</option></select><i>{{monthStr}}</i></div>
+                        <div class="prc_select"><select [(ngModel)]="selectBirthDayDay"><option *ngFor="let tmpDay of day" [ngValue]="tmpDay.id">{{tmpDay.value}}</option></select><i>{{dayStr}}</i></div>
+                    </div>
+                </li>
+                <li><span>{{field_MediaType}}</span>
+                    <div class="prc_reg_media_type">
+                        <a [class.active]="selectMediaType == media" (click)="mediaTypeClick(media)" *ngFor="let media of typeData.mediaType">{{media.typeName}}</a>
+                    </div>
+                </li>
+                <li><span>{{field_MediaName}}</span><div><input (ngModelChange)="inputChange($event,'mediaName')" [ngModel]="mediaName" [value]="mediaName" type="text"/></div></li>
+                <li><span>{{field_Responsible}}<i>{{field_Responsible_des}}</i></span><div><input (ngModelChange)="inputChange($event,'responsible')" [ngModel]="responsible" [value]="responsible" type="text"/></div></li>
+                <li>
+                    <span>{{field_Interested}}<i>{{field_Interested_des}}</i></span>
+                    <div class="prc_reg_fav">
+                        <div *ngFor="let wine of typeData.wineType"><a [class.active]="wine.isChecked" (click)="favClick(wine)">{{wine.value1}}</a><i>({{wine.value2}})</i></div>
+                    </div>
+                </li>
+                <li><span></span><div><input class="prc_reg_sumit" (click)="submitClick()" type="button" value="{{btnRequest}}"/></div></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="isShowLoading"></app-loading>

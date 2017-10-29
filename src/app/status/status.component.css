@@ -1,0 +1,36 @@
+.prc_start_logo{
+    display: block;
+    max-width: 70%;
+    margin: 0 auto;
+    padding-top: 60px;
+}
+.prc_start_logo img {display: block; width: 100%;}
+.statusText {
+    display: block;
+    margin: 20px 10%;
+    text-align: center;
+    font-size: 16px;
+    color: #1E4374;
+}
+
+.tipText,
+.scanTip {
+    display: block;
+    margin: 10px 10%;
+    text-align: center;
+    font-size: 14px;
+    color:#333;
+    line-height: 20px;
+}
+
+.scanTip {
+    margin-top: 60px;
+}
+
+.qrImage {
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
+}

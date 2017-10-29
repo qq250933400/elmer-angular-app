@@ -1,0 +1,36 @@
+<div class="prc_reg_back newBack">
+    <div class="prc_back">
+        <div [(class.noMenuBar)]="noMenuBar" (click)="areaClick($event)">
+            <div (click)="navClick($event)" class="nav attachShadow">
+                <div>
+                    <div>
+                        <img src="{{logo}}" />
+                        <a href="javascript:void(0)" (click)="menuClick()">
+                            <img src="{{menuIcon}}" alt="">
+                        </a>
+                        <a href="javascript:void(0)" routerLink="/prc/register">
+                            <img src="{{userIcon}}" alt="">
+                        </a>
+                        <a href="javascript:void(0)" (click)="downloadClick()">
+                            <img src="{{downloadIcon}}" alt="">
+                        </a>
+                    </div>
+                    <ul class="nav_menu" *ngIf="showMenu">
+                        <li class="nav_search">
+                            <div>
+                                <input type="text" />
+                                <img/>
+                            </div>
+                        </li>
+                        <li *ngFor="let menu of menuData">
+                            <span>{{menu.value1}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav_context">
+                <ng-content></ng-content>
+            </div>
+        </div>
+    </div>
+</div>
