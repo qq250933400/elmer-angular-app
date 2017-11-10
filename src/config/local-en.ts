@@ -33,10 +33,32 @@ export default {
         finish:{
             tipText: "You submitted the application we have received, the administrator is coming to the audit of the road, please wait.",
         },
+        detail:{
+            sourceTitle:"Graphic material:",
+            linkTitle:"Link:",
+            pwdTitle:"Password:",
+            btnGetSource:"Get Source",
+            btnGetMessage:"More information",
+            btnSend:"Send",
+            emailPlaceHolder:"Email",
+            btnSendLink:"SendLinkToEmail",
+            sendSuccess:"Send Success",
+            sendFaild:"Send Faild,Please try agin later",
+            btnSubmit:"Submit",
+            moreInfoHolder:"Please describe your requirements in detail",
+            moreInfoEmail:"Leave your mailbox, we will contact you as soon as possible."
+        },
+        news:{
+            selectTip:"Please choose at least one piece of news",
+            editEmail: "Edit"
+        },
         provinceStr: "P",
         cityStr:"C",
         monthStr:"M",
-        dayStr:"D"
+        dayStr:"D",
+        latestnews:"Latest news",
+        allNews: "All News"
     },
-    loading: 'Loading'
+    loading: 'Loading',
+    gotop: "GoTop"
 };

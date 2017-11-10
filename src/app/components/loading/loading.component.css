@@ -6,6 +6,7 @@
     left:0;
     top:0;
     background:rgba(10,10,10,0.4);
+    z-index: 888;
 }
 .app-loading > div {
     display: block;

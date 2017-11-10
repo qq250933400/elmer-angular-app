@@ -1,6 +1,7 @@
 html,body{
     margin: 0;padding:0;width:100%;height:100%;font-family: 'arial',"微软雅黑";
 }
+a,img,button,input,textarea,div{-webkit-tap-highlight-color:rgba(255,255,255,0);}
 .maxSizeStyle {
     display: block;width:100%;height:100%;
 }
@@ -10,11 +11,16 @@ html,body{
     background-size: 100%;
     height: 100%;
 }
+.prcBackWhite,
+.prcBackWhite>div{
+    background:#fff !important;
+}
 .prc_back > div {
     display: block;
     height: 100%;
     overflow: auto;
-    background: #e4e4e49a;
+    background: #f3f3f3c2;
+    -webkit-overflow-scrolling: touch;
 }
 .prc_reg_back{
     background: #F1F1F1;
@@ -24,4 +30,73 @@ html,body{
     left: 0;
     top: 0;
     width: 100%;
+}
+
+.btn,
+input[type=button],
+button{
+    -webkit-appearance: none;
+    outline: none;
+    padding: 5px 10px;
+    border:0;
+    background: #478FCA;
+    color:#fff;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+}
+
+.btn:hover,
+input[type=button]:hover,
+button:hover{
+    background: #5aa7e2;
+}
+
+.btn:active,
+input[type=button]:active,
+button:active{
+    background: #367fb3;
+}
+
+input[type=search],
+input[type=text],
+textarea{
+    display: block;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    padding: 10px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    outline: none;
+    border: 1px solid #ddd;
+    background: #fff;
+    box-shadow: 0 2px 2px #ddd inset;
+    -webkit-box-shadow: 0 2px 2px #ddd inset;
+    -moz-box-shadow: 0 2px 2px #ddd inset;
+    -ms-box-shadow: 0 2px 2px #ddd inset;
+}
+input[type=search]:hover,
+input[type=search]:focus,
+input[type=text]:hover,
+input[type=text]:focus,
+textarea:hover,
+textarea:focus{
+    border-color:#1857aa;
+    -webkit-box-shadow: 0 1px 2px #1857aa inset;
+    -moz-box-shadow: 0 1px 2px #1857aa inset;
+    -ms-box-shadow: 0 1px 2px #1857aa inset;
+    box-shadow: 0 1px 2px #1857aa inset;
+}
+
+.inputError{
+    border-color:#cf1515 !important;
+    -webkit-box-shadow: 0 1px 2px #cf1515 inset !important;
+    -moz-box-shadow: 0 1px 2px #cf1515 inset !important;
+    -ms-box-shadow: 0 1px 2px #cf1515 inset !important;
+    box-shadow: 0 1px 2px #cf1515 inset !important;
 }

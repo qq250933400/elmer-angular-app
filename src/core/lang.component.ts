@@ -25,6 +25,14 @@ export class LangComponent extends CoreComponent {
         this.curData = this.data[this.local];
         this.mergeFromGlobal();
     }
+    setLanguage(key:string, refresh: boolean = false):void{
+        if(window.sessionStorage) {
+            window.sessionStorage.setItem("local",key);
+            refresh && window.location.reload(true);
+        }else {
+            throw new Error("Setting the language's local is error,please upgrade your browser");
+        }
+    }
     message(key: string): string {
         if (key !== undefined || key !== null && key.length > 0) {
             if (key.indexOf('.') <= 0) {

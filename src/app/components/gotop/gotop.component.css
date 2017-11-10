@@ -1,0 +1,46 @@
+.gotop,.gotop > div,.gotop > div > div {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+}
+.gotop > div {
+    position: fixed;
+    background: #fff;
+    z-index: 999;
+    width: 100%;
+    bottom: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    padding-top:5px;
+}
+
+.gotopShadow{
+    box-shadow: 0 -2px 3px rgba(10,10,10,0.2);
+    -webkit-box-shadow: 0 -2px 3px rgba(10,10,10,0.2);
+    -moz-box-shadow: 0 -2px 3px rgba(10,10,10,0.2);
+    -ms-box-shadow: 0 -2px 3px rgba(10,10,10,0.2);
+}
+.gotop > div > div {
+    position: relative;
+}
+.gotop > div > div> img {
+    display: block;
+    width: 20px;
+    height: 16px;
+    margin: 0 auto;
+}
+.gotop > div > div> span {
+    display: block;
+    height:24px;
+    line-height: 24px;
+    font-size:12px;
+    text-align: center;
+    color:#0C386B;
+}
+
+.gotoAlignRight {
+    width: 80px !important;
+    float:right !important;
+}

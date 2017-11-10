@@ -1,34 +1,35 @@
 <div class="prc_reg_back newBack">
-    <div class="prc_back">
+    <div class="prc_back" [(class.prcBackWhite)]="whiteBackground">
         <div [(class.noMenuBar)]="noMenuBar" (click)="areaClick($event)">
-            <div (click)="navClick($event)" class="nav attachShadow">
-                <div>
+            <div (click)="navClick($event)" class="nav">
+                <div class="attachShadow">
                     <div>
                         <img src="{{logo}}" />
-                        <a href="javascript:void(0)" (click)="menuClick()">
+                        <a href="javascript:void(0);" (click)="menuClick()">
                             <img src="{{menuIcon}}" alt="">
                         </a>
-                        <a href="javascript:void(0)" routerLink="/prc/register">
+                        <a href="javascript:void(0);" routerLink="/prc/register">
                             <img src="{{userIcon}}" alt="">
                         </a>
-                        <a href="javascript:void(0)" (click)="downloadClick()">
+                        <a href="javascript:void(0);" (click)="handleDownloadClick()">
                             <img src="{{downloadIcon}}" alt="">
                         </a>
+                        <a class="menu_lang" href="javascript:void(0);" (click)="handleOnLangChange()">{{langTitle}}</a>
                     </div>
                     <ul class="nav_menu" *ngIf="showMenu">
                         <li class="nav_search">
                             <div>
-                                <input type="text" />
-                                <img/>
+                                <input type="search" value={{searchValue}} (keypress)="onKeyPressHandle($event)" />
+                                <a href="javascript:alert('ssss');" (click)="handleOnSearchClick($event)"></a>
                             </div>
                         </li>
-                        <li *ngFor="let menu of menuData">
+                        <li *ngFor="let menu of menuData" (click)="menuItemClick(menu)">
                             <span>{{menu.value1}}</span>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="nav_context">
+            <div class="nav_context" id="{{navID}}">
                 <ng-content></ng-content>
             </div>
         </div>

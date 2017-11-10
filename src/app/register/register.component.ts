@@ -58,10 +58,10 @@ export class RegisterComponent extends LangComponent implements OnInit {
     selectMediaType: object = null;
     selectBirthDayMonth: number = 2;
     selectBirthDayDay: number = 5;
-    userName: string = "江涛";
-    mobilePhone: string = "13825180704";
+    userName: string = "";
+    mobilePhone: string = "";
     mobilePhoneDisplay: string = this.formatMobilePhone(this.mobilePhone);
-    vertifyCode: string = "0011";
+    vertifyCode: string = "";
     mediaName: string = "default media";
     responsible: string = "Charge";
     userType: number | string = "";
@@ -69,6 +69,7 @@ export class RegisterComponent extends LangComponent implements OnInit {
     loadCity: boolean = false;
     loadBaseInfo: boolean = false;
     isShowLoading: boolean = true;
+    isSendSMSDiabled: boolean = null;
     constructor(
         private appService: AppService,
         private pinYinService: PinYinService,
@@ -203,6 +204,8 @@ export class RegisterComponent extends LangComponent implements OnInit {
                 this.checkLoading();
                 console.log(err);
             });
+        }else {
+            this.loadCity = true;
         }
     }
     checkLoading() {
@@ -285,7 +288,7 @@ export class RegisterComponent extends LangComponent implements OnInit {
             if (res.status == 200) {
                 const result = res.json();
                 if (result['success']) {
-                    if (this.userInfo['userID'] > 0) {
+                    if (this.userInfo['userID'] > 0 && this.userInfo.status == 1) {
                         alert(this.getMessage('updateSuccess'));
                     } else {
                         this.router.navigate(['prc','finish']);
@@ -300,5 +303,34 @@ export class RegisterComponent extends LangComponent implements OnInit {
     }
     inputChange(event, key): void {
         this[key] = event;
+    }
+    sendSMS():void{
+        this.isShowLoading = true;
+        this.appService.sendSMSCode(this.mobilePhone)
+            .then((data)=>{
+                this.isShowLoading = false;
+                if(data['success']){
+                    this.isSendSMSDiabled = true;
+                    const timeOut = 60;
+                    let timIndex = timeOut;
+                    const tim = () =>{
+                        if(timIndex<= 1) {
+                            this.isSendSMSDiabled = null;
+                            this.btnGetStr = this.getMessage("btnGet");
+                            return;
+                        }else {
+                            timIndex--;
+                            this.btnGetStr = `${timIndex}s`;
+                            setTimeout(tim,1000);
+                        }
+                    };
+                    new tim();
+                }else {
+                    alert(data['info']);
+                }
+            }).catch((err)=>{
+                this.isShowLoading = false;
+                alert(err);
+            });
     }
 }

@@ -1,23 +1,25 @@
 
 .reg_title{
     display: block;
-    padding: 20px 10%;
+    padding: 10px 10%;
     text-align: center;
     color:#0a3369;
     font-size:16px;
+    margin: 5px 0;
 }
 .reg_fields {
     list-style: none;
     padding: 20px;
     margin:0;
+    padding-top: 5px;
 }
 .reg_fields li {
     display: block;
-    min-height: 25px;
+    min-height: 20px;
     line-height: 25px;
     position: relative;
     padding-left: 100px;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 .reg_fields li > span {
     display: block;
@@ -77,6 +79,7 @@
 }
 .reg_field_vertify input[type=text] {
     width: 100px;
+    display: inline-block;
 }
 .reg_field_vertify input[type=button] {
     width: 50px;
@@ -137,11 +140,14 @@
 .prc_reg_city {
     float: right;
 }
-.prc_reg_media_type,.prc_reg_fav {
+.prc_reg_media_type,.prc_reg_fav,.prc_reg_media_type > div {
     display: block;
     position: relative;
 }
-.prc_reg_media_type a:first-child{margin-left: 0;}
+.prc_reg_media_type > div {
+    margin-left: -5px;
+}
+/* .prc_reg_media_type a:first-child{margin-left: 0;} */
 .prc_reg_media_type a,
 .prc_reg_fav a {
     display: inline-block;

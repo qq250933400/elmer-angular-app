@@ -19,6 +19,7 @@
     left: 0;
     top: 0;
     width: 100%;
+    z-index: 1000;
 }
 
 .nav>div>div>img{
@@ -33,6 +34,7 @@
     width: 40px;
     height: 50px;
     float: right;
+    color:#063368;
 }
 .nav>div>div>a>img{
     display: block;
@@ -41,7 +43,10 @@
     margin: 0 auto;
     margin-top: 15px;
 }
-
+.nav>div>div>.menu_lang {
+    text-decoration: none;
+    text-align: center;
+}
 .nav_menu {
     display: block;
     border-top:1px solid #eee;
@@ -113,7 +118,18 @@
     padding-top: 5px;
     position: relative;
 }
-.nav_menu .nav_search>div input[type=text]{
+.nav_menu .nav_search>div>a{
+    display: block;
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    right:0;
+    top:5px;
+    background: url(../../../assets/prc/search.png) no-repeat;
+    background-size: 18px 18px;
+    background-position: 8px;
+}
+.nav_menu .nav_search>div input[type=search]{
     display: block;
     height: 30px;
     width: 100%;
@@ -135,8 +151,16 @@
     -moz-box-shadow: 0 2px 3px #ddd inset;
     -ms-box-shadow: 0 2px 3px #ddd inset;
 }
-.nav_menu .nav_search>div::after,
-.nav_menu .nav_search>div:after{
+.nav_menu .nav_search>div input[type=search]:hover,
+.nav_menu .nav_search>div input[type=search]:focus{
+    border-color:#1857aa;
+    -webkit-box-shadow: 0 1px 2px #1857aa inset;
+    -moz-box-shadow: 0 1px 2px #1857aa inset;
+    -ms-box-shadow: 0 1px 2px #1857aa inset;
+    box-shadow: 0 1px 2px #1857aa inset;
+}
+/* .nav_menu .nav_search>div input::after,
+.nav_menu .nav_search>div input:after{
     content:"";
     display: block;
     width: 20px;
@@ -146,16 +170,18 @@
     position: absolute;
     right:6px;
     top:10px;
-}
+} */
 
 .attachShadow {
-    box-shadow: 0 2px 5px rgba(10,10,10,0.2);
+    /* box-shadow: 0 2px 5px rgba(10,10,10,0.2);
     -webkit-box-shadow: 0 2px 5px rgba(10,10,10,0.2);
     -moz-box-shadow: 0 2px 5px rgba(10,10,10,0.2);
-    -ms-box-shadow: 0 2px 5px rgba(10,10,10,0.2);
+    -ms-box-shadow: 0 2px 5px rgba(10,10,10,0.2); */
 }
 .nav_context {
+    /* position: relative; */
     display: block;
+    overflow: auto;
     height: calc(100% - 50px);
     height: -webkit-calc(100% - 50px);
     height: -moz-calc(100% - 50px);

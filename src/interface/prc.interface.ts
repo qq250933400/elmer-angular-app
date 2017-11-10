@@ -45,3 +45,62 @@ export class clsUserInfo  implements IUserInfo {
     wineType: number[];
     status: number;
 }
+
+export interface ISwapper {
+    alt?: string;
+    url?: string;
+    index?: number;
+    imageUrl: string;
+    title: string;
+}
+
+export class clsSwappe implements ISwapper {
+    alt?: string;
+    url?: string;
+    index?: number;
+    imageUrl: string;
+    title: string;
+}
+
+interface INewsImageInfo{
+    title?   :string;
+    alt?     :string;
+    url      :string;
+    imgUrl   :string;
+}
+export interface INewsInfo{
+    title: string;
+    date: string;
+    titleImageUrl: string;
+    description: string;
+    isChecked?: boolean;
+    images?: INewsImageInfo[];
+}
+
+export class clsNewsInfo implements INewsInfo{
+    title: string;
+    date: string;
+    titleImageUrl: string;
+    description: string;
+    isChecked?: boolean = false;
+    detailUrl?:string;
+    id?:number;
+    images?: INewsImageInfo[] = new Array<INewsImageInfo>();
+}
+
+export interface IResponseData {
+    success: boolean;
+    info: string;
+    data?: object
+}
+
+export interface INewsListItem {
+    newsID: number;
+    title?:string;
+    headImage?:string;
+    typeName?:string;
+    type?:number;
+    description?:string;
+    createDate?:string;
+    
+}

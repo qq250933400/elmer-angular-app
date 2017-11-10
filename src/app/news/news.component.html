@@ -1,1 +1,45 @@
-<app-nav>这是内容</app-nav>
+<app-nav navID="newsCenter" (downloadClick)="handleOnDownloadClick()">
+    <div style="display:block;overflow-x:hidden;">
+        <app-swapper *ngIf="showWrapper" (onItemClick)="handleOnSwapperItemClick($event)" [data]="swapperData"></app-swapper>
+        <div *ngIf="showWrapperLoading" class="news_loading"><span><img src="{{loadingGIF}}"/><i>{{loadingText}}</i></span></div>
+        <h4 [(class.newsTypeNoSwrapper)]="!showWrapper" class="new_type_title">{{currentNewsType}}</h4>
+        <ul class="new_list" [(class.newLoadAction)]="showGetSource">
+            <li *ngFor="let news of newsData" >
+                <a href="javascript:void(0);" (click)="newsItemClick(news)" [(class.active)]="news.isChecked">
+                    <img src="{{news.titleImageUrl}}" alt="{{news.title}}" (click)="newsImageClick($event,news)">
+                    <div>
+                        <h4>{{news.title}}</h4>
+                        <i>{{news.date}}</i>
+                        <span>{{news.description}}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <app-dialog *ngIf="showDownLoadURLDialog" btnTitle="{{btnSendLink}}" (confirm)="handleOnDownloadConfirm()" (close)="handleonDownLoadClose()">
+            <div class="downloadContent">
+                <b>{{sourceTitle}}</b>
+                <div class="downloadList">
+                    <a href="javascript:void(0);" *ngFor="let news of selectNews">
+                        <b>{{news.title}}</b>
+                        <span>{{linkTitle}}{{news.downloadurl}}&nbsp;&nbsp;{{pwdTitle}}{{news.downloadpwd}}</span>
+                    </a>
+                </div>
+            </div>
+        </app-dialog>
+        <app-dialog *ngIf="showSendDialog" confirmVisible="{{showSendConfirm}}" logo="{{emailIcon}}" cancleConfirmClose="{{cancelSendClose}}"
+            btnTitle="{{btnSend}}" (confirm)="handleOnSendEmail()" (close)="handleOnSendEmailClose()">
+            <input *ngIf="showEmailInput" [ngClass]="{inputError: emailError === true}" type="text" placeholder="{{emailPlaceHolder}}"
+                (ngModelChange)="handleOnEmailChange($event)" [ngModel]="toEmail" [(value)]="toEmail" class="tb_send_email" type="text"
+            />
+            <span *ngIf="!showEmailInput" class="operate_msg">{{sendResult}}</span>
+        </app-dialog>
+        <div *ngIf="showNewsLoading" class="news_loading"><span><img src="{{loadingGIF}}"/><i>{{loadingText}}</i></span></div>
+        <app-loading *ngIf="showLoading"></app-loading>
+    </div>
+    <div class="gotop">
+        <app-gotop WapperID="newsCenter" display="{{showGetSource}}" alignRight={{showGetSource}}>
+            <button *ngIf="showGetSource" (click)="handleOnGetSourceClick($event)" class="newsGetSource">{{btnGetSource}}</button>
+            <div><img src="{{logo}}"/><span>全部新闻</span></div>
+        </app-gotop>
+    </div>
+</app-nav>

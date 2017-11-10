@@ -5,7 +5,10 @@
             <ul class="reg_fields">
                 <li><span>{{field_Name}}</span><div><input type="text" (ngModelChange)="inputChange($event,'userName')" [ngModel]="userName" [value]="userName"/></div></li>
                 <li><span>{{field_Phone}}</span><div><input name="username" (keydown)="mobileKeyDown($event)" (ngModelChange)="mobileChange($event)" [ngModel]="mobilePhoneDisplay" type="text" [value]="mobilePhoneDisplay" /></div></li>
-                <li class="reg_field_vertify"><span>{{field_VertifyCode}}</span><div><input type="text" (ngModelChange)="inputChange($event,'vertifyCode')" [ngModel]="vertifyCode" [value]="vertifyCode"/><input type="button" value="{{btnGetStr}}"/></div></li>
+                <li class="reg_field_vertify"><span>{{field_VertifyCode}}</span><div>
+                    <input type="text" (ngModelChange)="inputChange($event,'vertifyCode')" [ngModel]="vertifyCode" [value]="vertifyCode"/>
+                    <input (click)="sendSMS()" disabled="{{isSendSMSDiabled}}" type="button" value="{{btnGetStr}}"/>
+                </div></li>
                 <li>
                     <span>{{field_Location}}</span>
                     <div>
@@ -32,7 +35,9 @@
                 </li>
                 <li><span>{{field_MediaType}}</span>
                     <div class="prc_reg_media_type">
-                        <a [class.active]="selectMediaType == media" (click)="mediaTypeClick(media)" *ngFor="let media of typeData.mediaType">{{media.typeName}}</a>
+                        <div>
+                            <a [class.active]="selectMediaType == media" (click)="mediaTypeClick(media)" *ngFor="let media of typeData.mediaType">{{media.typeName}}</a>
+                        </div>
                     </div>
                 </li>
                 <li><span>{{field_MediaName}}</span><div><input (ngModelChange)="inputChange($event,'mediaName')" [ngModel]="mediaName" [value]="mediaName" type="text"/></div></li>

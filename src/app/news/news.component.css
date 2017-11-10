@@ -1,0 +1,206 @@
+.new_type_title {
+    display: block;
+    font-size:15px;
+    font-weight: bold;
+    margin:0;
+    padding: 20px;
+    padding-top:40px;
+    padding-bottom:10px;
+    color:#083569;
+}
+.newsTypeNoSwrapper{
+    padding-top:10px;
+}
+.new_list {
+    display: block;
+    list-style: none;
+    padding:0;
+    margin: 0 20px;
+}
+
+.new_list li{
+    display: block;
+    height: 120px;
+    padding-top: 1px;
+}
+.new_list li a{
+    display: block;
+    position: relative;
+    height: 100px;
+    margin-top:10px;
+    padding-left:110px;
+    text-decoration: none;
+}
+.new_list li a > img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    top:0;
+}
+.new_list li a > div {
+    display: block;
+    height: 100px;
+    overflow: hidden;
+}
+.new_list li a > div > h4{
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    line-height: 15px;
+    font-size:12px;
+    color:#5A5A5A;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    font-weight: normal;
+}
+.new_list li a > div > i{
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    font-size:10px;
+    font-style: normal;
+    color:#7E7E7E;
+}
+
+.new_list li a > div > span {
+    display: block;
+    height: 40px;
+    line-height: 20px;
+    font-size:10px;
+    color:#5A5A5A;
+}
+.new_list li .active::before,
+.newLoadAction li a::before{
+    content:"";
+    width: 12px;
+    height: 12px;
+    border:1px solid #c0bfbf;
+    position: absolute;
+    left: -15px;
+    top:44px;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.newLoadAction li a::before {
+    background: #eee;
+    box-shadow: 0 1px 2px #dbdbdbb4 inset;
+    -webkit-box-shadow: 0 1px 2px #dbdbdbb4 inset;
+    -moz-box-shadow: 0 1px 2px #dbdbdbb4 inset;
+    -ms-box-shadow: 0 1px 2px #dbdbdbb4 inset;
+}
+.new_list li .active::before {
+    background: #063368;
+    border-width: 3px !important;
+    border-color:#fff;
+    box-shadow: 0 0 2px #3a3a3a !important;
+    -webkit-box-shadow: 0 0 2px #3a3a3a !important;
+    -moz-box-shadow: 0 0 2px #3a3a3a !important;
+    -ms-box-shadow: 0 0 2px #3a3a3a !important;
+}
+.news_loading {
+    display: block;
+    padding: 1px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.news_loading > span {
+    display: block;
+    text-align: center;
+    height: 30px;
+    padding: 1px;
+}
+.news_loading > span > img{
+    display: inline-block;
+    width:24px;
+    height: 24px;
+    margin-top:3px;
+}
+.news_loading > span > i{
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 3px;
+    font-size:12px;
+    color:#dbab26;
+    font-style: normal;
+    overflow: hidden;
+    padding-left:5px;
+}
+
+.tb_send_email {
+    display: block;
+    margin: 10px auto;
+    padding: 5px;
+    width: 90%;
+}
+.operate_msg {
+    display: block;
+    text-align: center;
+    padding: 20px;
+    font-size:15px;
+    color:#053469;
+}
+.downloadContent {
+    display:block;
+    max-height: 50%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.downloadContent>b{
+    display: block;
+    font-size: 14px;
+    line-height: 24px;
+    color:#053469;
+    border-bottom:1px solid #ecedee;
+    margin-bottom: 5px;
+}
+.downloadContent>div{
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.downloadContent>div>a{
+    text-decoration: none;
+    color:#1d508b;
+    font-size:12px;
+    padding: 4px;
+    border-bottom: 1px solid #eeeeee;
+    display:block;
+}
+.downloadContent>div>a>b{
+    display:block;
+    line-height: 18px;
+}
+.downloadContent>div>a>span{
+    display:block;
+    line-height: 15px;
+    font-size:10px;
+}
+.downloadContent>div>a:nth-child(2n+1) {
+    background:#fafafa;
+}
+.downloadContent>div>a:nth-child(2n) {
+    background:#eff8ff;
+}
+
+.newsGetSource {
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    margin-top:5px;
+}
+.gotop app-gotop div>div>div:first-child {
+    display: none;
+}
+.toAllNews{
+
+}

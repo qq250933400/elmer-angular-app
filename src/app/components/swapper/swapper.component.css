@@ -1,0 +1,121 @@
+
+.listClear,
+.CarouselFigure_focusBtn,
+.CarouselFigure_focusBtn li,
+.CarouselFigure_Items ul,
+.CarouselFigure_Items ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.CarouselFigure {
+  display: block;
+  position: relative;
+  padding-top:1px;
+  }
+  .CarouselFigure .CarouselFigure_Items {
+    display: block;
+    position: relative; }
+    .CarouselFigure .CarouselFigure_Items ul {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      width: 100%; }
+    .CarouselFigure .CarouselFigure_Items ul,
+    .CarouselFigure .CarouselFigure_Items li {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      top: 0; }
+      .CarouselFigure .CarouselFigure_Items ul > div,
+      .CarouselFigure .CarouselFigure_Items li > div {
+        display: block; }
+        .CarouselFigure .CarouselFigure_Items ul > div > img,
+        .CarouselFigure .CarouselFigure_Items li > div > img {
+          width: 100%; }
+  .CarouselFigure .CarouselFigure_focusBtn {
+    display: block;
+    height: 20px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -30px;
+    text-align: center; }
+    .CarouselFigure .CarouselFigure_focusBtn li {
+      display: inline-block;
+      font-size: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      transition: all 0.6s ease;
+      -webkit-transition: all 0.6s ease;
+      -moz-transition: all 0.6s ease;
+      -ms-transition: all 0.6s ease;
+      background: #063369;
+      margin-right: 4px;
+      cursor: pointer; }
+      .CarouselFigure .CarouselFigure_focusBtn li i {
+        display: none; }
+      .CarouselFigure .CarouselFigure_focusBtn li:last-child {
+        margin-right: 14px; }
+    .CarouselFigure .CarouselFigure_focusBtn .active {
+      background: #478FCA;width: 15px; }
+  .CarouselFigure .CarouselFigure_PrevButton,
+  .CarouselFigure .CarouselFigure_NextButton {
+    display: none;
+    position: absolute;
+    height: 50px;
+    width: 30px;
+    top: 50%;
+    margin-top: -25px;
+    border: 0;
+    background: rgba(50, 50, 50, 0.4);
+    -webkit-appearance: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    font-family: "瀹嬩綋";
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease; }
+  .CarouselFigure .CarouselFigure_PrevButton:hover,
+  .CarouselFigure .CarouselFigure_NextButton:hover {
+    background: rgba(10, 10, 10, 0.6); }
+  .CarouselFigure .CarouselFigure_PrevButton:active,
+  .CarouselFigure .CarouselFigure_NextButton:active {
+    background: rgba(10, 10, 10, 0.8); }
+  .CarouselFigure .CarouselFigure_PrevButton {
+    left: 0;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%); }
+  .CarouselFigure .CarouselFigure_NextButton {
+    right: 0;
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%); }
+
+.CarouselFigure:hover .CarouselFigure_PrevButton {
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -o-transform: translateX(0%); }
+.CarouselFigure:hover .CarouselFigure_NextButton {
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -o-transform: translateX(0%); }
+

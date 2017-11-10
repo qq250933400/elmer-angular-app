@@ -26,15 +26,19 @@ export class StartComponent extends LangComponent implements OnInit {
                 this.isLoading = false;
                 const userData = this.appService.getUserInfo();
                 if (userData.userID > 0) {
-                    if(parseInt(userData.status.toString(),10) === 1) {
+                    if(parseInt(userData.status.toString(),10) === 1 && userData.userType && userData.userType.toString().length>0) {
                         this.router.navigate(['prc', 'register']);
-                    } else {
+                    } else if(parseInt(userData.status.toString(),10) !== 1 && userData.userType && userData.userType.toString().length>0) {
                         this.router.navigate(['prc', 'status']);
                     }
+                } else {
+                    window.location.href = this.appService.baseURL + "index.php?m=Prc&c=Index&a=index";
                 }
-            }).catch((err:ErrorEvent) => {
+            }).catch((err) => {
                 this.isLoading = false;
-                console.error("ResponseError:" + err.message);
+                alert(err);
+                //window.location.href = this.appService.baseURL + "index.php?m=Prc&c=Index&a=index";
+                console.error("ResponseError:" + err, this.appService.getUserInfo());
             });
     }
     getMessage(key: string): string {

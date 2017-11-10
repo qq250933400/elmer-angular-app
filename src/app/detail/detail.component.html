@@ -1,0 +1,37 @@
+<app-nav (downloadClick)="handleOnDownloadClick()" [noMenuBar]="MenuBarDisable">
+    <div class="detail">
+        <img *ngFor="let ct of content" title="{{ct.title}}" src="{{baseUrl}}{{ct.url}}" />
+    </div>
+    <app-dbtn>
+        <button class="btn_download" (click)="handleOnDownloadClick()">{{btnGetSource}}</button><button (click)="handleOnMoreInfoClick()" class="btn_email">{{btnGetMessage}}</button>
+    </app-dbtn>
+    <app-dialog *ngIf="showDownLoadURLDialog" btnTitle="{{btnSendLink}}" (confirm)="handleOnDownloadConfirm()" (close)="handleonDownLoadClose()">
+        <div class="downloadContent">
+            <b>{{sourceTitle}}</b>
+            <div>
+                <span>{{linkTitle}}{{downloadURL}}</span>
+                <span>{{pwdTitle}}{{downloadPWD}}</span>
+            </div>
+        </div>
+    </app-dialog>
+    <app-dialog *ngIf="showSendDialog" confirmVisible="{{showSendConfirm}}" logo="{{emailIcon}}" cancleConfirmClose="{{cancelSendClose}}" btnTitle="{{btnSend}}" (confirm)="handleOnSendEmail()" (close)="handleOnSendEmailClose()">
+        <input *ngIf="showEmailInput" [ngClass]="{inputError: emailError === true}" type="text" placeholder="{{emailPlaceHolder}}" (ngModelChange)="handleOnMoreEmailChange($event)"  [ngModel]="toEmail" [(value)]="toEmail" class="tb_send_email" type="text"/>
+        <span *ngIf="!showEmailInput" class="operate_msg">{{sendResult}}</span>
+    </app-dialog>
+    <div *ngIf="showMoreInfo" class="more_info" (click)="handleOnMoreMaskClick($event)">
+        <div>
+            <div class="showMoreInfoAnimation" (click)="handleOnMoreContentClick($event)">
+                <a href="javascript:void(0);" (click)="handleOnMoreInfoClose()">×</a>
+                <div>
+                    <textarea (change)="handleTextAreaChange($event)" (keypress)="handleTextAreaChange($event)" placeholder="{{moreInfoHolder}}" >{{moreInfoText}}</textarea>
+                    <input [ngClass]="{inputError: emailError === true}" type="text" placeholder="{{moreInfoEmail}}" (ngModelChange)="handleOnMoreEmailChange($event)"  [ngModel]="toEmail" [(value)]="toEmail"/>
+                    <input (click)="handleOnMoreSubmitClick()" type="button" value="{{btnSubmit}}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-dialog *ngIf="showSendMoreInfoResult" confirmVisible="{{false}}" logo="{{emailIcon}}" btnTitle="{{btnSend}}" (close)="handleOnMoreInfoResultClose()">
+        <span class="operate_msg">{{sendResult}}</span>
+    </app-dialog>
+    <app-loading *ngIf="showLoading"></app-loading>
+</app-nav>

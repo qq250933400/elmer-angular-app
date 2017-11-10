@@ -33,10 +33,32 @@ export default {
         finish:{
             tipText: "感谢您对保乐力加的支持，如果你喜欢我们，可以长按以下二维码关注我们。",
         },
+        detail:{
+            sourceTitle:"图文素材：",
+            linkTitle:"链接：",
+            pwdTitle:"密码：",
+            btnGetSource:"获取素材",
+            btnGetMessage:"获取更多信息",
+            btnSend:"确认发送",
+            btnSendLink:"发送链接到邮箱",
+            emailPlaceHolder:"邮箱",
+            sendSuccess:"发送成功",
+            sendFaild:"发送失败，请稍后重试",
+            btnSubmit:"提交",
+            moreInfoHolder:"请详细描述您的需求",
+            moreInfoEmail:"留下您的邮箱，我们会尽快与您联系。"
+        },
+        news:{
+            selectTip:"请选择至少一条新闻！",
+            editEmail: "编辑"
+        },
         provinceStr: "省",
         cityStr:"市",
         monthStr:"月",
-        dayStr:"日"
+        dayStr:"日",
+        latestnews:"最新动态",
+        allNews: "全部新闻"
     },
-    loading: '加载中...'
+    loading: '加载中...',
+    gotop: "回到顶部"
 };

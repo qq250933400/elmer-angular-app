@@ -1,0 +1,16 @@
+<div class="CarouselFigure" (mousein)="handleOnContainerMouseIn()" (mouseleave)="handleonContainerMouseOut()">
+    <div class="CarouselFigure_Items">
+        <ul id="imgPanel{{id}}">
+            <li *ngFor="let curData of data" (click)="handleOnItemClick(curData)">
+                <div >
+                    <img src={{curData.imageUrl}} (load)="handleImageLoadCompleted()" />
+                </div>
+            </li>
+        </ul>
+    </div>
+    <ul class="CarouselFigure_focusBtn">
+        <li *ngFor="let tmpData of data;" (click)="handleOnFocusClick()" [(class.active)]="currentIndex === tmpData.index"><i>{{tmpData.index}}</i></li>
+    </ul>
+    <button class="CarouselFigure_PrevButton" (click)="handleOnPrevClick()">&lt;</button>
+    <button class="CarouselFigure_NextButton" (click)="handleOnNextClick()">&gt;</button>
+</div>
