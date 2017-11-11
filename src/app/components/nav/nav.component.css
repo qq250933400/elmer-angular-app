@@ -9,8 +9,8 @@
 .nav>div,
 .nav>div>div {
     display: block;
-    height: 50px;
-    line-height: 50px;
+    height: 60px;
+    line-height: 60px;
     background: #fff;
 }
 .nav>div{
@@ -27,12 +27,12 @@
     height:30px;
     float:left;
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 .nav>div>div>a{
     display: block;
     width: 40px;
-    height: 50px;
+    height: 60px;
     float: right;
     color:#063368;
 }
@@ -41,7 +41,7 @@
     width: 20px;
     height: 20px;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 .nav>div>div>.menu_lang {
     text-decoration: none;
@@ -182,10 +182,10 @@
     /* position: relative; */
     display: block;
     overflow: auto;
-    height: calc(100% - 50px);
-    height: -webkit-calc(100% - 50px);
-    height: -moz-calc(100% - 50px);
-    height: -ms-calc(100% - 50px);
+    height: calc(100% - 60px);
+    height: -webkit-calc(100% - 60px);
+    height: -moz-calc(100% - 60px);
+    height: -ms-calc(100% - 60px);
 }
 
 .noMenuBar .nav {

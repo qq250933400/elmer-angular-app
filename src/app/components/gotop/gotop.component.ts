@@ -4,7 +4,7 @@ import { LangComponent } from '../../../core/lang.component';
     selector:"app-gotop",
     styleUrls:['./gotop.component.css'],
     template:`<div class="gotop" *ngIf="visible"><div class="gotopShadow" (click)="gotopClick()">
-        <div [(class.gotoAlignRight)]="alignRight"><img src="{{logo}}"/><span>{{title}}</span></div>
+        <div [(class.gotoAlignRight)]="alignRight" *ngIf="!hiddenGoTop"><img src="{{logo}}"/><span>{{title}}</span></div>
         <ng-content></ng-content>
     </div></div>`
 })
@@ -13,6 +13,7 @@ export class GotopComponent extends LangComponent implements AfterViewInit, OnCh
     logo = "assets/prc/gotop.png";
     visible: boolean = false;
     isGotop = false;
+    @Input()hiddenGoTop: boolean = false;
     @Input()alignRight: boolean = false;
     @Input()wapper: Element;
     @Input()WapperID: string;
@@ -41,6 +42,10 @@ export class GotopComponent extends LangComponent implements AfterViewInit, OnCh
                     this.visible = false;
                 }
             }
+        }
+        if(evt.hiddenGoTop) {
+            const value = evt.hiddenGoTop.currentValue == 'true' ? true : false;
+            this.hiddenGoTop = value;
         }
         
     }

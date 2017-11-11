@@ -267,7 +267,7 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
         const curLeft = parseFloat(this.getAttr(curImage,'data-left'));
         const now = new Date().getTime();
         const effTime = now - this.pressTime ;
-        if(effTime>1200){
+        if(effTime>200){
             if(curLeft>0){
                 const index = this.currentIndex-1<0 ? this.ImageList.children.length-1 : this.currentIndex - 1;
                 this.toNextItem(index,false);
@@ -275,6 +275,13 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
                 const index = this.currentIndex+1>this.ImageList.children.length-1 ? 0 : this.currentIndex + 1;
                 this.toNextItem(index,true);
             }
+        }else {
+            const preImage = this.getPreImage();
+            const nexImage = this.getNextImage();
+            this.setAttr(preImage,'data-left',-100);
+            this.setAttr(nexImage,'data-left',100);
+            this.setAttr(this.ImageList.children[this.currentIndex],'data-left',0);
+           
         }
     }
     touchMove(myEvent):void{

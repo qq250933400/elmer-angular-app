@@ -17,10 +17,11 @@ export class NewsService{
         const encodeCallBack =window['encodeURIComponent'];
         this.searchValue = encodeCallBack ? encodeCallBack(value||''): value;
     }
-    getNewsList(StartPage):Promise<object>{
+    getNewsList(StartPage,islastNews: boolean = false):Promise<object>{
         const gPage = StartPage>=0 ? StartPage : 0;
         let url = `${this.appService.baseURL}index.php?m=Prc&c=News&a=getNewsList&page=${gPage}&psize=${this.listPageSize}`;
         url += `&newstype=${this.searchNewsType}&search=${this.searchValue}`;
+        url += islastNews ? "&islastnews=1":'';
         return new Promise((resolve,reject)=>{
             this.http.get(url).toPromise().then((res:Response)=>{
                 if(res.status==200){

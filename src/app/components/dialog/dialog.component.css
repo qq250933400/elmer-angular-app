@@ -47,6 +47,8 @@
     min-height: 40px;
     background: #fff;
     padding:10px;
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 .dialog_bottom {
     display: block;

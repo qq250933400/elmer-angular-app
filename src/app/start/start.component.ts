@@ -26,9 +26,9 @@ export class StartComponent extends LangComponent implements OnInit {
                 this.isLoading = false;
                 const userData = this.appService.getUserInfo();
                 if (userData.userID > 0) {
-                    if(parseInt(userData.status.toString(),10) === 1 && userData.userType && userData.userType.toString().length>0) {
+                    if(parseInt(userData.status.toString(),10) === 1  && userData.userType.toString().length>0) {
                         this.router.navigate(['prc', 'register']);
-                    } else if(parseInt(userData.status.toString(),10) !== 1 && userData.userType && userData.userType.toString().length>0) {
+                    } else if(parseInt(userData.status.toString(),10) !== 1 && userData.userType.toString().length>0) {
                         this.router.navigate(['prc', 'status']);
                     }
                 } else {

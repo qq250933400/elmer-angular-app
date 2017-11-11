@@ -85,8 +85,10 @@ export class RegisterComponent extends LangComponent implements OnInit {
         if (this.userType === undefined || this.userType === null || this.userType.toString().length <= 0) {
             this.router.navigate(['prc', 'start']);
         }
-        if (this.userInfo.userID > 0) {
+        if (this.userInfo.userID > 0 && this.userInfo.status == 1) {
             this.btnRequest = this.getMessage("btnModify");
+        } else {
+            this.btnRequest = this.getMessage('btnRequest');
         }
         this.appService.getProvince().then((data: Response) => {
             if (data.status == 200) {

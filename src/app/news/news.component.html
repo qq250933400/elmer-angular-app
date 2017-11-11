@@ -36,10 +36,8 @@
         <div *ngIf="showNewsLoading" class="news_loading"><span><img src="{{loadingGIF}}"/><i>{{loadingText}}</i></span></div>
         <app-loading *ngIf="showLoading"></app-loading>
     </div>
-    <div class="gotop">
-        <app-gotop WapperID="newsCenter" display="{{showGetSource}}" alignRight={{showGetSource}}>
-            <button *ngIf="showGetSource" (click)="handleOnGetSourceClick($event)" class="newsGetSource">{{btnGetSource}}</button>
-            <div><img src="{{logo}}"/><span>全部新闻</span></div>
-        </app-gotop>
-    </div>
+    <app-gotop hiddenGoTop="{{isHiddenGoto}}" WapperID="newsCenter" display="{{showGetSource}}" alignRight={{showGetSource}}>
+        <button *ngIf="showGetSource" (click)="handleOnGetSourceClick($event)" class="newsGetSource">{{btnGetSource}}</button>
+        <div class="toAllNews" (click)="handleOnGoToAllNews($event)" *ngIf="!showGetSource && isLastNews"><span>{{allNewsTypeTitle}}</span><img src="{{logo}}"/></div>
+    </app-gotop>
 </app-nav>

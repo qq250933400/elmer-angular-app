@@ -78,6 +78,7 @@ export class NavComponent extends LangComponent implements OnInit {
             const value = event.target['value']||'';
             const encodeCallBack = window['encodeURIComponent'];
             const eValue = encodeCallBack(value);
+            this.searchValue = value;
             this.router.navigateByUrl(`prc/news/${newType}/${eValue}`);
             this.showMenu = false;
         }
@@ -92,6 +93,7 @@ export class NavComponent extends LangComponent implements OnInit {
         const value = sender.value||'';
         const encodeCallBack = window['encodeURIComponent'];
         const eValue = encodeCallBack(value);
+        this.searchValue = value;
         this.router.navigateByUrl(`prc/news/${newType}/${eValue}`);
         this.showMenu = false;
     }

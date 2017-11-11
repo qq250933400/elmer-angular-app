@@ -9,8 +9,8 @@ export class AppService{
     NewsType = 0;
     NewsTitle = '';
     SearchNewsValue = '';
-    baseURL: string = "http://localhost/prc/";
-    // baseURL: string = "http://www.hopiano.com/prc/";
+    // baseURL: string = "http://localhost/prc/";
+    baseURL: string = "http://www.hopiano.com/prc/";
     constructor(private http: Http, private UserInfo: clsUserInfo) {
     }
     getUserInfomation():Promise<object>{

@@ -20,7 +20,7 @@
                         <li class="nav_search">
                             <div>
                                 <input type="search" value={{searchValue}} (keypress)="onKeyPressHandle($event)" />
-                                <a href="javascript:alert('ssss');" (click)="handleOnSearchClick($event)"></a>
+                                <a href="javascript:void(0);" (click)="handleOnSearchClick($event)"></a>
                             </div>
                         </li>
                         <li *ngFor="let menu of menuData" (click)="menuItemClick(menu)">

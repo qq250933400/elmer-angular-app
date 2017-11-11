@@ -31,6 +31,8 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     cancelSendClose          = true;
     emailError               = false;
     isEditEmail              = false;
+    isLastNews               = true;
+    isHiddenGoto             = false;
     gotoAlignRight           = false;
     toEmail: string          = '';
     logo                     = "assets/prc/gotop.png";
@@ -46,11 +48,15 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     sendFaild: string        = this.message("prc.detail.sendFaild");
     selectTip: string        = this.message("prc.news.selectTip");
     editEmail: string        = this.message("prc.news.editEmail");
+    allNewsTypeTitle         = this.message("prc.allNews");
     sendResult: string       = this.sendSuccess;
     selectNews: clsNewsInfo[]= new Array<clsNewsInfo>();
     userInfo: clsUserInfo;
     isLogin                  = false;
     currentNewsType          = '';
+    mouseY                   = 0;
+    isPressed                = false;
+    moveAnimation            = false;
     constructor(private ele:ElementRef,
         private sev: NewsService,
         private router: Router,
@@ -61,8 +67,11 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         this.newsData = new Array<clsNewsInfo>();
         this.onScroll = this.onScroll.bind(this);
         this.userInfo = this.appService.getUserInfo();
+        this.handleOnWrapperTouchMove = this.handleOnWrapperTouchMove.bind(this);
+        this.handleOnWrapperTouchStart = this.handleOnWrapperTouchStart.bind(this);
+        this.handleOnWrapperTouchEnd = this.handleOnWrapperTouchEnd.bind(this);
         const typeTitle = this.appService.getNewsTypeTitle();
-        if(typeTitle == null || typeTitle === undefined || typeTitle.length<=0) {
+        if(this.isLastNews) {
             this.currentNewsType = this.message("prc.latestnews");
         } else {
             this.currentNewsType = typeTitle;
@@ -79,7 +88,6 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             this.newsData = new Array<clsNewsInfo>();
             this.page = 0;
             this.pageCount = 1;
-            this.isLogin && this.loadNewData();
             //-----------
             const searchValue = this.appService.getSearchNewsValue();
             if(searchValue == undefined || searchValue== null || searchValue.length<=0) {
@@ -98,7 +106,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                 this.currentNewsType = this.message("prc.allNews");
                 this.showWrapper = false;
             }
-
+            this.isLogin && this.loadNewData();
         });
         if(this.userInfo === undefined || this.userInfo === null || this.userInfo.userID === undefined ||
             this.userInfo.userID === null || this.userInfo.userID<=0) {
@@ -109,7 +117,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     this.loadNewData();
                 }).catch((err)=>{
                     this.isLogin = false;
-                    alert(err);
+                    // alert(err);
                     const myUrl = encodeURIComponent(this.appService.baseURL + 'Public/prc/index.html#/prc/news');
                     window.location.href=this.appService.baseURL + "index.php?m=Prc&c=Index&a=index&url="+myUrl;        
                 });
@@ -118,10 +126,20 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             this.loadSwapperData();
             this.loadNewData();
         }
+        const searchValue = this.appService.getSearchNewsValue();
+        if(searchValue !== undefined && searchValue !== null && searchValue.length>0){
+            this.showWrapper = false;
+        }
     }
     ngAfterViewInit():void{
         this.wrapper = document.querySelector("#newsCenter");
         this.addEvent(this.wrapper,"scroll",this.onScroll);
+        this.addEvent(this.wrapper,"touchstart",this.handleOnWrapperTouchStart);
+        this.addEvent(this.wrapper,"touchmove",this.handleOnWrapperTouchMove);
+        this.addEvent(this.wrapper,"touchend",this.handleOnWrapperTouchEnd);
+        this.addEvent(this.wrapper,"mousedown",this.handleOnWrapperTouchStart);
+        this.addEvent(this.wrapper,"mousemove",this.handleOnWrapperTouchMove);
+        this.addEvent(this.wrapper,"mouseup",this.handleOnWrapperTouchEnd);
     }
     loadSwapperData():void{
         this.showWrapperLoading = true;
@@ -147,7 +165,10 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                             url: afData.url
                         });
                     }
-                    this.showWrapper = true;
+                    const searchValue = this.appService.getSearchNewsValue();
+                    if((searchValue === undefined || searchValue === null || searchValue.length<=0) && this.isLastNews){
+                        this.showWrapper = true;
+                    }
                 }else {
                     this.showWrapper = false;
                 }
@@ -156,13 +177,14 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             });
     }
     loadNewData():void{
-        if(this.pageCount>= this.page){
+        if(this.pageCount> this.page){
             this.showNewsLoading = true;
-            this.sev.getNewsList(this.page).then((data:IResponseData)=>{
+            this.sev.getNewsList(this.page, this.isLastNews).then((data:IResponseData)=>{
                 this.showNewsLoading = false;
                 if(data.success){
                     const newsData: object[] = <object[]>data.data;
                     if(this.page === 0) this.newsData = new Array<clsNewsInfo>();
+                    this.page = this.page + 1;
                     newsData && newsData.map((news)=>{
                         const tmpNews = {
                             title: news['title'],
@@ -175,8 +197,8 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                         tmpNews["downloadpwd"] = news['downloadpwd'];
                         this.newsData.push(tmpNews);
                     });
-                    this.pageCount = data['pageCount'];
-                    this.page = this.page + 1;
+                    this.pageCount = parseInt(data['pageCount']);
+                    
                 }else {
                     alert(data.info);
                 }
@@ -209,10 +231,24 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         //     }
         // });
     }
-    onScroll(event):void{
+    onScroll(event:Event):void{
         if (Math.abs(this.wrapper.scrollHeight - this.wrapper.clientHeight - this.wrapper.scrollTop)<=8 && this.newsType>=0){
             this.loadNewData();
         }
+        if(this.wrapper.scrollTop > 50 && this.isLastNews) {
+            this.isHiddenGoto = true;
+        } else {
+            this.isHiddenGoto = false;
+        }
+    }
+    handleOnGoToAllNews(event:Event):void{
+        event.cancelBubble = true;
+        this.isLastNews = false;
+        this.showWrapper = false;
+        this.page = 0;
+        this.newsData = new Array<clsNewsInfo>();
+        this.currentNewsType = this.message("prc.allNews");
+        this.loadNewData();
     }
     handleOnDownloadClick():void{
         this.gotoAlignRight = true;
@@ -220,7 +256,12 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         if(!this.showGetSource) {
             this.newsData && this.newsData.map((item)=>{
                 item.isChecked = false;
-            })
+            });
+            if(this.isLastNews) {
+                this.isHiddenGoto = true;
+            }
+        }else {
+            this.isHiddenGoto = false; 
         }
     }
     handleOnGetSourceClick(event:Event):void{
@@ -294,5 +335,55 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     handleOnSwapperItemClick(data:clsSwappe):void{
         const url = data.url;
         this.router.navigateByUrl(url);
+    }
+    handleOnWrapperTouchStart(event):void{
+        const posY = event.touches ? event.touches[0].clientY : event.clientY;
+        this.isPressed = true;
+        this.mouseY = posY;
+    }
+    handleOnWrapperTouchMove(event):void{
+        const posY = event.touches ? event.touches[0].clientY : event.clientY;
+        if(this.wrapper && this.isPressed && this.wrapper.scrollTop<=0 && !this.moveAnimation) {
+            const effY = posY - this.mouseY;
+            const mTop = this.wrapper['style']['marginTop'];
+            let nTop = mTop.length<= 0 ? 0 : mTop.replace("px",'');
+            nTop = parseInt(nTop) + effY;
+            if(nTop>0){
+                this.wrapper['style']['marginTop'] = nTop+ "px";
+                this.mouseY = posY;
+            }
+        }
+        // console.log(this.wrapper.scrollTop, this.isPressed);
+    }
+    handleOnWrapperTouchEnd(event:Event):void{
+        this.isPressed = false;
+        const mTop = this.wrapper['style']['marginTop'];
+        const nTop = mTop.length<= 0 ? 0 : mTop.replace("px",'');
+        if(!this.moveAnimation){
+            if(parseInt(nTop)>50){
+                if(!this.isLastNews) {
+                    this.isLastNews = true;
+                    this.showWrapper = true;
+                    this.currentNewsType = this.message("prc.latestnews");
+                    this.wrapper['style']['marginTop'] = 0;
+                    return;
+                }
+            }
+            if(nTop>0){
+                let ani_Len = nTop;
+                const ani = () =>{
+                    if(ani_Len>0) {
+                        ani_Len-= 2;
+                        this.wrapper['style']['marginTop'] = ani_Len + "px";
+                        setTimeout(ani,2);
+                    }else {
+                        this.wrapper['style']['marginTop'] = 0;
+                        this.moveAnimation = false;
+                    }
+                };
+                this.moveAnimation = true;
+                ani();
+            }
+        }
     }
 }

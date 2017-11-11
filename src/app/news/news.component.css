@@ -20,13 +20,13 @@
 
 .new_list li{
     display: block;
-    height: 120px;
+    height: 110px;
     padding-top: 1px;
 }
 .new_list li a{
     display: block;
     position: relative;
-    height: 100px;
+    height: 90px;
     margin-top:10px;
     padding-left:110px;
     text-decoration: none;
@@ -34,14 +34,14 @@
 .new_list li a > img {
     display: block;
     width: 100px;
-    height: 100px;
+    height: 90px;
     position: absolute;
     left: 0;
     top:0;
 }
 .new_list li a > div {
     display: block;
-    height: 100px;
+    height: 90px;
     overflow: hidden;
 }
 .new_list li a > div > h4{
@@ -49,7 +49,7 @@
     padding: 0;
     height: 30px;
     line-height: 15px;
-    font-size:12px;
+    font-size:13px;
     color:#5A5A5A;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -58,18 +58,19 @@
 }
 .new_list li a > div > i{
     display: block;
-    height: 30px;
+    height: 25px;
     line-height: 30px;
-    font-size:10px;
+    font-size:11px;
     font-style: normal;
     color:#7E7E7E;
+    margin-top:2px;
 }
 
 .new_list li a > div > span {
     display: block;
     height: 40px;
-    line-height: 20px;
-    font-size:10px;
+    line-height: 18px;
+    font-size:12px;
     color:#5A5A5A;
 }
 .new_list li .active::before,
@@ -198,9 +199,23 @@
     margin-left: -50px;
     margin-top:5px;
 }
-.gotop app-gotop div>div>div:first-child {
-    display: none;
-}
-.toAllNews{
 
+.toAllNews{
+    display: block;
+    height: 45px;
+}
+.toAllNews>img {
+    display: block;
+    width: 18px;
+    height: 15px;
+    margin: 0 auto;
+    transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+}
+.toAllNews>span {
+    font-size:12px;
+    text-align: center;
+    display: block;
+    line-height: 20px;
+    color:#053469;
 }
