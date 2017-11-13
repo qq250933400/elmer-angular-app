@@ -17,6 +17,7 @@ export class LangComponent extends CoreComponent {
     data: object = {};
     curData: object = {};
     local = 'zh';
+    isMerged = false;
     constructor() {
         super();
         const lang = window.sessionStorage && window.sessionStorage.getItem('local');
@@ -34,6 +35,9 @@ export class LangComponent extends CoreComponent {
         }
     }
     message(key: string): string {
+        if(!this.isMerged) {
+            this.mergeFromGlobal();
+        }
         if (key !== undefined || key !== null && key.length > 0) {
             if (key.indexOf('.') <= 0) {
                 return this.curData[key] || key;
@@ -64,6 +68,7 @@ export class LangComponent extends CoreComponent {
         const tmpData = window['language'] || {};
         for (const key in tmpData) {
             this.mergeNode(this.data[key], tmpData[key]);
+            this.isMerged = true;
         }
     }
     mergeNode(target: object,src: object) {

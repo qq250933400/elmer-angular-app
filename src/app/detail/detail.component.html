@@ -1,6 +1,8 @@
 <app-nav (downloadClick)="handleOnDownloadClick()" [noMenuBar]="MenuBarDisable">
-    <div class="detail">
-        <img *ngFor="let ct of content" title="{{ct.title}}" src="{{baseUrl}}{{ct.url}}" />
+    <div style="display:block;height:100%;overflow-x:hidden;overflow-y:auto">
+        <div class="detail">
+            <img *ngFor="let ct of content" title="{{ct.title}}" src="{{baseUrl}}{{ct.url}}" />
+        </div>
     </div>
     <app-dbtn>
         <button class="btn_download" (click)="handleOnDownloadClick()">{{btnGetSource}}</button><button (click)="handleOnMoreInfoClick()" class="btn_email">{{btnGetMessage}}</button>

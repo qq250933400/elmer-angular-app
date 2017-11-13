@@ -57,7 +57,8 @@ export default {
         monthStr:"月",
         dayStr:"日",
         latestnews:"最新动态",
-        allNews: "全部新闻"
+        allNews: "全部新闻",
+        knowMore:"了解更多"
     },
     loading: '加载中...',
     gotop: "回到顶部"

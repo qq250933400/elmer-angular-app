@@ -4,7 +4,7 @@ import { LangComponent } from '../../core/lang.component';
 import { AppService } from '../../services/app.service';
 import { PinYinService } from '../../services/pinyin.service';
 import { IUserInfo,clsUserInfo } from '../../interface/prc.interface';
-import { IRegsiterTypeData, clsRegisterType } from '../../interface/prc.interface';
+import { IRegsiterTypeData, clsRegisterType,UserType } from '../../interface/prc.interface';
 
 /* eslint-disable */
 @Component({
@@ -292,8 +292,10 @@ export class RegisterComponent extends LangComponent implements OnInit {
                 if (result['success']) {
                     if (this.userInfo['userID'] > 0 && this.userInfo.status == 1) {
                         alert(this.getMessage('updateSuccess'));
-                    } else {
+                    } else if(this.userInfo.userID>0 && this.userInfo.status != 1 && (this.userType !== UserType.MediaUser)) {
                         this.router.navigate(['prc','finish']);
+                    } else if(this.userInfo.userID>0 && this.userInfo.status != 1 && this.userType == UserType.MediaUser) {
+                        this.router.navigate(['prc','status']);
                     }
                 } else {
                     alert(result['info']);

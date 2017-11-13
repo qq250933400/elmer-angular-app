@@ -12,10 +12,5 @@ export class HomeComponent implements OnInit {
 
     }
     ngOnInit(): void {
-        this.appService.demo().then((res) => {
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        });
     }
 }

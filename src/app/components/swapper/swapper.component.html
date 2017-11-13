@@ -4,6 +4,7 @@
             <li *ngFor="let curData of data" (click)="handleOnItemClick(curData)">
                 <div >
                     <img src={{curData.imageUrl}} (load)="handleImageLoadCompleted()" />
+                    <div class="swapper_title"><span>{{curData.title}}</span><i>{{knowmore}}</i></div>
                 </div>
             </li>
         </ul>

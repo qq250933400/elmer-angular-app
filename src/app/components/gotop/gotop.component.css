@@ -4,6 +4,8 @@
     line-height: 45px;
 }
 .gotop > div {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     position: fixed;
     background: #fff;
     z-index: 999;

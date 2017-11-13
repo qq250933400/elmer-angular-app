@@ -104,3 +104,9 @@ export interface INewsListItem {
     createDate?:string;
     
 }
+
+export const UserType = {
+    NormalUser: 'NormalUser',
+    MediaUser:'MediaUser',
+    WineLover: 'WineLover'
+};

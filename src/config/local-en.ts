@@ -57,8 +57,9 @@ export default {
         monthStr:"M",
         dayStr:"D",
         latestnews:"Latest news",
-        allNews: "All News"
+        allNews: "All News",
+        knowMore:"Know more"
     },
-    loading: 'Loading',
+    loading: 'Loading...',
     gotop: "GoTop"
 };

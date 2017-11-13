@@ -1,5 +1,5 @@
-<app-nav navID="newsCenter" (downloadClick)="handleOnDownloadClick()">
-    <div style="display:block;overflow-x:hidden;">
+<app-nav navID="newsCenter" (onMenuItemClick)="handleOnNavMenuItemClick()" (downloadClick)="handleOnDownloadClick()">
+    <div id="newsContext" style="display:block;overflow-x:hidden;overflow-y:auto;">
         <app-swapper *ngIf="showWrapper" (onItemClick)="handleOnSwapperItemClick($event)" [data]="swapperData"></app-swapper>
         <div *ngIf="showWrapperLoading" class="news_loading"><span><img src="{{loadingGIF}}"/><i>{{loadingText}}</i></span></div>
         <h4 [(class.newsTypeNoSwrapper)]="!showWrapper" class="new_type_title">{{currentNewsType}}</h4>
@@ -36,7 +36,7 @@
         <div *ngIf="showNewsLoading" class="news_loading"><span><img src="{{loadingGIF}}"/><i>{{loadingText}}</i></span></div>
         <app-loading *ngIf="showLoading"></app-loading>
     </div>
-    <app-gotop hiddenGoTop="{{isHiddenGoto}}" WapperID="newsCenter" display="{{showGetSource}}" alignRight={{showGetSource}}>
+    <app-gotop hiddenGoTop="{{isHiddenGoto}}" WapperID="newsContext" display="{{showGetSource}}" alignRight={{showGetSource}}>
         <button *ngIf="showGetSource" (click)="handleOnGetSourceClick($event)" class="newsGetSource">{{btnGetSource}}</button>
         <div class="toAllNews" (click)="handleOnGoToAllNews($event)" *ngIf="!showGetSource && isLastNews"><span>{{allNewsTypeTitle}}</span><img src="{{logo}}"/></div>
     </app-gotop>

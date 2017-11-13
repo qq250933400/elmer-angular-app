@@ -49,14 +49,17 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     selectTip: string        = this.message("prc.news.selectTip");
     editEmail: string        = this.message("prc.news.editEmail");
     allNewsTypeTitle         = this.message("prc.allNews");
+    appTitle: string         = this.message('app_title');
     sendResult: string       = this.sendSuccess;
     selectNews: clsNewsInfo[]= new Array<clsNewsInfo>();
     userInfo: clsUserInfo;
     isLogin                  = false;
     currentNewsType          = '';
     mouseY                   = 0;
+    pressY                   = 0;
     isPressed                = false;
     moveAnimation            = false;
+    contentHeight            = "";
     constructor(private ele:ElementRef,
         private sev: NewsService,
         private router: Router,
@@ -76,14 +79,18 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         } else {
             this.currentNewsType = typeTitle;
         }
+        if (this.appTitle && this.appTitle.length > 0) {
+            document.title = this.appTitle;
+        }
     }
     ngOnInit():void{
+        this.newsData = new Array<clsNewsInfo>();
         this.activeRouter.params.subscribe((data:Params)=>{
             const type = data['type'];
             const value = data['search'] || '';
             this.sev.setNewsType(type);
             this.sev.setNewsSearch(value);
-            this.newsType = type;
+            this.newsType = type>=0 ? type:0;
             this.appService.setSearchNewsValue(value);
             this.newsData = new Array<clsNewsInfo>();
             this.page = 0;
@@ -93,17 +100,28 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             if(searchValue == undefined || searchValue== null || searchValue.length<=0) {
                 const typeTitle = this.appService.getNewsTypeTitle();
                 if(typeTitle == null || typeTitle === undefined || typeTitle.length<=0) {
-                    this.currentNewsType = this.message("prc.latestnews");
+                    if(type == undefined || type == 0) {
+                        this.currentNewsType = this.message("prc.latestnews");
+                    }else {
+                        this.currentNewsType = this.message("prc.allNews");
+                    }
                 } else {
                     this.currentNewsType = typeTitle;
                 }
-                if(this.appService.getRouterType()==0) {
+                if(type == 0 || type == undefined) {
                     this.showWrapper = true;
+                    this.isLastNews = true;
+                    this.isHiddenGoto = true;
+                    this.currentNewsType = this.message("prc.latestnews");
                 }else {
                     this.showWrapper = false;
+                    this.isLastNews = false;
                 }
             }else {
                 this.currentNewsType = this.message("prc.allNews");
+                this.showWrapper = false;
+            }
+            if(this.newsType>0){
                 this.showWrapper = false;
             }
             this.isLogin && this.loadNewData();
@@ -117,9 +135,11 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     this.loadNewData();
                 }).catch((err)=>{
                     this.isLogin = false;
-                    // alert(err);
+                    alert(err['msg']);
                     const myUrl = encodeURIComponent(this.appService.baseURL + 'Public/prc/index.html#/prc/news');
-                    window.location.href=this.appService.baseURL + "index.php?m=Prc&c=Index&a=index&url="+myUrl;        
+                    if(err['data'] && err['data']['outlogin']){
+                        window.location.href=this.appService.baseURL + "index.php?m=Prc&c=Index&a=index&url="+myUrl;        
+                    }
                 });
         } else {
             this.isLogin = true;
@@ -132,6 +152,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         }
     }
     ngAfterViewInit():void{
+        const context = this.ele.nativeElement.querySelector(".nav_context");
         this.wrapper = document.querySelector("#newsCenter");
         this.addEvent(this.wrapper,"scroll",this.onScroll);
         this.addEvent(this.wrapper,"touchstart",this.handleOnWrapperTouchStart);
@@ -140,6 +161,8 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         this.addEvent(this.wrapper,"mousedown",this.handleOnWrapperTouchStart);
         this.addEvent(this.wrapper,"mousemove",this.handleOnWrapperTouchMove);
         this.addEvent(this.wrapper,"mouseup",this.handleOnWrapperTouchEnd);
+        this.contentHeight = context.clientHeight + "px";
+        this.setCss(context.querySelector("#newsContext"),"height",this.contentHeight);
     }
     loadSwapperData():void{
         this.showWrapperLoading = true;
@@ -169,6 +192,9 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     if((searchValue === undefined || searchValue === null || searchValue.length<=0) && this.isLastNews){
                         this.showWrapper = true;
                     }
+                    if(this.newsType>0){
+                        this.showWrapper = false;
+                    }
                 }else {
                     this.showWrapper = false;
                 }
@@ -177,15 +203,18 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             });
     }
     loadNewData():void{
-        if(this.pageCount> this.page){
+        if(this.pageCount> this.page && !this.showNewsLoading){
             this.showNewsLoading = true;
+            if(this.page == 0 && this.newsData.length>0){
+                this.newsData = new Array<clsNewsInfo>();
+            }
             this.sev.getNewsList(this.page, this.isLastNews).then((data:IResponseData)=>{
                 this.showNewsLoading = false;
                 if(data.success){
-                    const newsData: object[] = <object[]>data.data;
+                    const tmpData: object[] = <object[]>data.data;
                     if(this.page === 0) this.newsData = new Array<clsNewsInfo>();
                     this.page = this.page + 1;
-                    newsData && newsData.map((news)=>{
+                    tmpData && tmpData.map((news)=>{
                         const tmpNews = {
                             title: news['title'],
                             titleImageUrl: this.appService.baseURL + news['headimage'],
@@ -197,10 +226,16 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                         tmpNews["downloadpwd"] = news['downloadpwd'];
                         this.newsData.push(tmpNews);
                     });
-                    this.pageCount = parseInt(data['pageCount']);
-                    
+                    this.pageCount = parseInt(data['pageCount']);                   
                 }else {
                     alert(data.info);
+                    if(data['toStatus']) {
+                        this.router.navigate(['prc', 'status']);
+                    }else if(data['toFinish']){
+                        this.router.navigate(['prc', 'finish']);
+                    }else if(data['outlogin']) {
+                         window.location.href = this.appService.baseURL + "index.php?m=Prc&c=Index&a=index";
+                    }
                 }
             }).catch((err)=>{
                 this.showNewsLoading = false;
@@ -233,9 +268,11 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     onScroll(event:Event):void{
         if (Math.abs(this.wrapper.scrollHeight - this.wrapper.clientHeight - this.wrapper.scrollTop)<=8 && this.newsType>=0){
-            this.loadNewData();
+            if(!this.showGetSource){
+                this.loadNewData();
+            }
         }
-        if(this.wrapper.scrollTop > 50 && this.isLastNews) {
+        if(this.wrapper.scrollTop > 30 && this.isLastNews) {
             this.isHiddenGoto = true;
         } else {
             this.isHiddenGoto = false;
@@ -245,9 +282,10 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         event.cancelBubble = true;
         this.isLastNews = false;
         this.showWrapper = false;
+        this.isHiddenGoto = false;
         this.page = 0;
-        this.newsData = new Array<clsNewsInfo>();
         this.currentNewsType = this.message("prc.allNews");
+        this.newsData = new Array<clsNewsInfo>();
         this.loadNewData();
     }
     handleOnDownloadClick():void{
@@ -340,50 +378,49 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         const posY = event.touches ? event.touches[0].clientY : event.clientY;
         this.isPressed = true;
         this.mouseY = posY;
+        this.pressY = posY;
     }
     handleOnWrapperTouchMove(event):void{
-        const posY = event.touches ? event.touches[0].clientY : event.clientY;
-        if(this.wrapper && this.isPressed && this.wrapper.scrollTop<=0 && !this.moveAnimation) {
-            const effY = posY - this.mouseY;
-            const mTop = this.wrapper['style']['marginTop'];
-            let nTop = mTop.length<= 0 ? 0 : mTop.replace("px",'');
-            nTop = parseInt(nTop) + effY;
-            if(nTop>0){
-                this.wrapper['style']['marginTop'] = nTop+ "px";
+        try{
+            const posY = event.touches ? event.touches[0].clientY : event.clientY;
+            if(this.wrapper && this.isPressed && this.wrapper.scrollTop<=0 && !this.moveAnimation) {
+                const effY = posY - this.mouseY;
+                const mTop = this.wrapper['style']['marginTop'];
+                let nTop = mTop.length<= 0 ? 0 : mTop.replace("px",'');
+                nTop = parseInt(nTop) + effY;
                 this.mouseY = posY;
+                // if(nTop>0){
+                //     this.wrapper['style']['marginTop'] = nTop+ "px";
+                //     this.mouseY = posY;
+                // }
             }
+        }catch(e){
+            alert(e.message);
         }
         // console.log(this.wrapper.scrollTop, this.isPressed);
     }
     handleOnWrapperTouchEnd(event:Event):void{
         this.isPressed = false;
         const mTop = this.wrapper['style']['marginTop'];
-        const nTop = mTop.length<= 0 ? 0 : mTop.replace("px",'');
+        const nTop = this.mouseY - this.pressY;//mTop.length<= 0 ? 0 : mTop.replace("px",'');
         if(!this.moveAnimation){
-            if(parseInt(nTop)>50){
+            if(nTop>30 && this.newsType == 0){
                 if(!this.isLastNews) {
                     this.isLastNews = true;
                     this.showWrapper = true;
+                    this.isHiddenGoto = true;
+                    this.page = 0;
                     this.currentNewsType = this.message("prc.latestnews");
-                    this.wrapper['style']['marginTop'] = 0;
+                    //this.wrapper['style']['marginTop'] = 0;
+                    // this.router.navigateByUrl("prc/news/0");
+                    this.newsData = new Array<clsNewsInfo>();
+                    this.loadNewData();
                     return;
                 }
             }
-            if(nTop>0){
-                let ani_Len = nTop;
-                const ani = () =>{
-                    if(ani_Len>0) {
-                        ani_Len-= 2;
-                        this.wrapper['style']['marginTop'] = ani_Len + "px";
-                        setTimeout(ani,2);
-                    }else {
-                        this.wrapper['style']['marginTop'] = 0;
-                        this.moveAnimation = false;
-                    }
-                };
-                this.moveAnimation = true;
-                ani();
-            }
         }
+    }
+    handleOnNavMenuItemClick():void{
+       // this.newsData = new Array<clsNewsInfo>();
     }
 }

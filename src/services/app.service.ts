@@ -248,5 +248,25 @@ export class AppService{
     getNewsTypeTitle():string{
         return this.NewsTitle;
     }
+    choseUserType(type:string): Promise<object>{
+        return new Promise((resolve,reject)=>{
+            let headers = new Headers(); //其实不表明 json 也可以, ng 默认好像是 json
+            headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            headers.append('Accept', 'application/json, text/javascript, */*; q=0.01');
+            this.http.post(`${this.baseURL}index.php?m=Prc&c=Index&a=setUserType`,this.urlEncodeObject({
+                userType: type
+            }),{headers}).toPromise().then((res:Response)=>{
+                if(res.status=200) {
+                    resolve(res.json());
+                }else {
+                    reject({msg: res.statusText});
+                }
+            }).catch((err:ErrorEvent)=>{
+                reject({
+                    msg:err.message
+                });
+            });
+        });
+    }
 }
 

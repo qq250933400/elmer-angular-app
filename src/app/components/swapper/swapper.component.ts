@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, Input, AfterViewInit, ElementRef, OnChanges, Output, EventEmitter } from '@angular/core';
-import { CoreComponent } from '../../../core/core.component';
+import { LangComponent } from '../../../core/lang.component';
 import { ISwapper, clsSwappe } from '../../../interface/prc.interface';
 @Component({
     selector: "app-swapper",
@@ -7,7 +7,7 @@ import { ISwapper, clsSwappe } from '../../../interface/prc.interface';
     styleUrls: ['./swapper.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class SwapperComponent extends CoreComponent implements AfterViewInit, OnChanges{
+export class SwapperComponent extends LangComponent implements AfterViewInit, OnChanges{
     id: string = new Date().getTime().toString() + (Math.random()*1000+1000).toFixed(0).toString();
     sender: HTMLElement;
     itemPanel: HTMLElement;
@@ -29,7 +29,10 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
     mouseIn = false;
     mouseX = 0;
     mouseY = 0;
+    pressX = 0;
+    pressY = 0;
     pressTime = 0;
+    knowmore = this.message("prc.knowMore");
     constructor(private ele:ElementRef){
         super();
         this.isSupportCss3 = this.supportCss3("transform");
@@ -38,6 +41,14 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
         this.touchEnd = this.touchEnd.bind(this);
     }
     ngOnChanges():void{
+        if(this.data.length<2 && this.data.length>0){
+            const cData = this.data[0];
+            this.data.push({
+                title: cData.title,
+                imageUrl: cData.imageUrl,
+                index: 1
+            });
+        }
         this.data.map((item,key)=>{
             this.data[key].index = key;
         });
@@ -98,6 +109,11 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
                     }
                 }
             }
+            const preImage = this.getPreImage();
+            const nexImage = this.getNextImage();
+            this.setAttr(preImage,'data-left',-100);
+            this.setAttr(nexImage,'data-left',100);
+            this.setAttr(this.ImageList.children[this.currentIndex],'data-left',0);
         }
     }
     setImageContainerSize () {
@@ -243,6 +259,8 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
         const event = myEvent || window.event;
         this.mouseX = event.touches[0].clientX;
         this.mouseY = event.touches[0].clientY;
+        this.pressX = this.mouseX;
+        this.pressY = this.mouseY;
         const preImage = this.getPreImage();
         const nexImage = this.getNextImage();
         this.pressTime = new Date().getTime();
@@ -267,7 +285,7 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
         const curLeft = parseFloat(this.getAttr(curImage,'data-left'));
         const now = new Date().getTime();
         const effTime = now - this.pressTime ;
-        if(effTime>200){
+        if(Math.abs(effTime)>30 && (Math.abs(this.mouseY-this.pressY)<Math.abs(this.mouseX-this.pressX))){
             if(curLeft>0){
                 const index = this.currentIndex-1<0 ? this.ImageList.children.length-1 : this.currentIndex - 1;
                 this.toNextItem(index,false);
@@ -281,18 +299,20 @@ export class SwapperComponent extends CoreComponent implements AfterViewInit, On
             this.setAttr(preImage,'data-left',-100);
             this.setAttr(nexImage,'data-left',100);
             this.setAttr(this.ImageList.children[this.currentIndex],'data-left',0);
-           
         }
     }
     touchMove(myEvent):void{
         if(this.isPressed && !this.animation){
             const event = myEvent || window.event;
             const posX = event.touches[0].clientX;
+            const posY = event.touches[0].clientY;
             const effX = posX - this.mouseX;
             const preImage = this.getPreImage();
             const curImage = this.ImageList.children[this.currentIndex];
             const nexImage = this.getNextImage();
             const sWidth = this.ImageList.clientWidth;
+            this.mouseX = posX;
+            this.mouseY = posY;
             if(sWidth>0){
                 const sPercent = effX/sWidth;
                 const preLeft = parseFloat(this.getAttr(preImage,'data-left')) + sPercent;

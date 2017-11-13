@@ -19,6 +19,8 @@ export class NavComponent extends LangComponent implements OnInit {
     langTitle: string = this.local === 'en' ? "中" : "EN";
     @Output()
     downloadClick: EventEmitter<boolean> = new EventEmitter(true);
+    @Output()
+    onMenuItemClick: EventEmitter<object> = new EventEmitter(false);
     @Input()
     navID: string;
     searchValue: string = '';
@@ -37,7 +39,7 @@ export class NavComponent extends LangComponent implements OnInit {
                         listData[key]['value1'] = mStr;
                     });
                     this.menuData = [
-                        { value_id: 0, value1: this.message('prc.latestnews') },
+                        { value_id: -1, value1: this.message('prc.allNews') },
                         ...listData
                     ];
                 }
@@ -67,7 +69,11 @@ export class NavComponent extends LangComponent implements OnInit {
     menuItemClick(menuItem): void {
         const newsID = menuItem['value_id'];
         const title = this.local === 'en' ? menuItem['value2'] : menuItem['value1'];
-        this.appService.setRouterType(newsID);
+        const nTypeID = newsID>=0 ? newsID : 0;
+        if(this.onMenuItemClick) {
+            this.onMenuItemClick.emit(menuItem);
+        }
+        this.appService.setRouterType(nTypeID);
         this.appService.setNewsType(title);
         this.router.navigateByUrl(`prc/news/${newsID}`);
         this.showMenu = false;
