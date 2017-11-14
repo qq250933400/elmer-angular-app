@@ -61,6 +61,7 @@ button:active{
 
 input[type=search],
 input[type=text],
+input[type=password],
 textarea{
     display: block;
     -webkit-border-radius: 3px;
@@ -84,6 +85,8 @@ input[type=search]:hover,
 input[type=search]:focus,
 input[type=text]:hover,
 input[type=text]:focus,
+input[type=password]:hover,
+input[type=password]:active,
 textarea:hover,
 textarea:focus{
     border-color:#1857aa;

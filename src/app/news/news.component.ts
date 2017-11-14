@@ -245,7 +245,8 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     newsItemClick(news:clsNewsInfo):void{
         if(!this.showGetSource){
-            this.router.navigateByUrl("prc/detail/"+news.id);
+            // this.router.navigateByUrl("prc/detail/"+news.id);
+            window.location.href = this.appService.baseURL + "Public/prc/index.html#/prc/detail/" + news.id;
         } else {
             news.isChecked = !news.isChecked;
             this.selectNews = new Array<clsNewsInfo>();
@@ -372,7 +373,8 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     handleOnSwapperItemClick(data:clsSwappe):void{
         const url = data.url;
-        this.router.navigateByUrl(url);
+        // this.router.navigateByUrl(url);
+        window.location.href = url;
     }
     handleOnWrapperTouchStart(event):void{
         const posY = event.touches ? event.touches[0].clientY : event.clientY;

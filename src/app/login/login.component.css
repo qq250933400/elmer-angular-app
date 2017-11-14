@@ -1,0 +1,31 @@
+.prc_start_logo{
+    display: block;
+    max-width: 70%;
+    margin: 0 auto;
+    padding-top: 60px;
+}
+.prc_start_logo img {display: block; width: 100%;}
+.login_input_area {
+    margin: 0 auto;
+    margin-top: 60px;
+    text-align: center;
+    
+}
+
+.login_input_area input{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.login_input_area input[type=password]{
+    margin-top: 20px;
+}
+
+.login_button {
+    display:block;
+    width: 80%;
+    padding: 8px 0;
+    font-size:16px;
+    margin: 0 auto;
+    margin-top: 60px !important;
+}

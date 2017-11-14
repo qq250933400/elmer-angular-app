@@ -1,1 +1,15 @@
-<h2>登录页面</h2>
+<div class="prc_reg_back">
+    <div class="prc_back">
+        <div>
+            <a href="javascript:void(0);" class="prc_start_logo">
+                <img [src]="logo" />
+            </a>
+            <div class="login_input_area">
+                <input type="text" (keypress)="handleOnMobileChange($event)" (change)="handleOnMobileChange($event)" placeholder="手机号码" />
+                <input type="password" (keypress)="handleOnPasswordChange($event)" (change)="handleOnPasswordChange($event)"  placeholder="登录密码" />
+            </div>
+            <button (click)="handleOnLogin()" class="login_button" >登录</button>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="isLoading"></app-loading>
