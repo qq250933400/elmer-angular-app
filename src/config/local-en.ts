@@ -19,6 +19,7 @@ export default {
             field_Responsible_des: 'Split by ,',
             field_Interested: 'interested',
             field_Interested_des: 'Multiselect',
+            field_Address: "Address",
             btnRequest: 'Apply immediately',
             btnModify: 'Update',
             btnGet: 'Get',

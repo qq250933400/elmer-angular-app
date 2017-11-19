@@ -27,6 +27,7 @@ export interface IUserInfo {
     mediaType: string,
     mediaName: string,
     responsible: string,
+    address?: string,
     wineType: number[]
 };
 export class clsUserInfo  implements IUserInfo {
@@ -42,6 +43,7 @@ export class clsUserInfo  implements IUserInfo {
     mediaType: string;
     mediaName: string;
     responsible: string;
+    address?: string;
     wineType: number[];
     status: number;
 }

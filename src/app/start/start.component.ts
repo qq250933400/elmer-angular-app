@@ -54,7 +54,20 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
         return this.message(`prc.start.${key}`);
     }
     onMediaTypeClick(): void {
+        this.isLoading = true;
         this.appService.setUserType(UserType.MediaUser);
+        this.appService.setMediaUserType(UserType.MediaUser)
+            .then((data)=>{
+                this.isLoading = false;
+                if(data['success']) {
+                    this.router.navigateByUrl("prc/register");
+                }else {
+                    alert(data['info']);
+                }
+            }).catch((err)=>{
+                this.isLoading = false;
+                alert(err.msg);
+            });
     }
     onWineLoverClick(): void {
         this.appService.setUserType(UserType.WineLover);

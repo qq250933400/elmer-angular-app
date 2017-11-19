@@ -26,6 +26,7 @@
                         </div>
                     </div>
                 </li>
+                <li><span>{{field_Address}}</span><div><input type="text" (ngModelChange)="inputChange($event,'address')" [ngModel]="address" [value]="address"/></div></li>
                 <li>
                     <span>{{field_Birthday}}</span>
                     <div>

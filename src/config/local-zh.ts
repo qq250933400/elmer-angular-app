@@ -19,6 +19,7 @@ export default {
             field_Responsible_des: '板块以，分隔',
             field_Interested: '感兴趣',
             field_Interested_des: '可多选',
+            field_Address: "详细地址",
             btnRequest: '立即申请',
             btnModify: '更新信息',
             btnGet: '获取',

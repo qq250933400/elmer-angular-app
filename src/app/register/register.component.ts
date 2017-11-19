@@ -14,24 +14,25 @@ import { IRegsiterTypeData, clsRegisterType,UserType } from '../../interface/prc
 })
 export class RegisterComponent extends LangComponent implements OnInit {
     // userInfo: IUserInfo;
-    title: string = this.message("prc.register.title");
-    field_Name: string = this.getMessage('field_Name');
-    field_Phone: string = this.getMessage('field_Phone');
-    field_VertifyCode: string = this.getMessage('field_VertifyCode');
-    field_Location: string = this.getMessage('field_Location');
-    field_Birthday: string = this.getMessage('field_Birthday');
-    field_MediaType: string = this.getMessage('field_MediaType');
-    field_MediaName: string = this.getMessage('field_MediaName');
-    field_Responsible: string = this.getMessage('field_Responsible');
+    title: string                 = this.message("prc.register.title");
+    field_Name: string            = this.getMessage('field_Name');
+    field_Phone: string           = this.getMessage('field_Phone');
+    field_VertifyCode: string     = this.getMessage('field_VertifyCode');
+    field_Location: string        = this.getMessage('field_Location');
+    field_Birthday: string        = this.getMessage('field_Birthday');
+    field_MediaType: string       = this.getMessage('field_MediaType');
+    field_MediaName: string       = this.getMessage('field_MediaName');
+    field_Responsible: string     = this.getMessage('field_Responsible');
     field_Responsible_des: string = this.getMessage('field_Responsible_des');
-    field_Interested: string = this.getMessage('field_Interested');
-    field_Interested_des: string = this.getMessage('field_Interested_des');
-    btnRequest: string = this.getMessage('btnRequest');
-    provinceStr: string = this.message("prc.provinceStr");
-    btnGetStr: string = this.getMessage("btnGet");
-    cityStr: string = this.message("prc.cityStr");
-    monthStr: string = this.message("prc.monthStr");
-    dayStr: string = this.message("prc.dayStr");
+    field_Interested: string      = this.getMessage('field_Interested');
+    field_Interested_des: string  = this.getMessage('field_Interested_des');
+    field_Address: string         = this.getMessage('field_Address');
+    btnRequest: string            = this.getMessage('btnRequest');
+    provinceStr: string           = this.message("prc.provinceStr");
+    btnGetStr: string             = this.getMessage("btnGet");
+    cityStr: string               = this.message("prc.cityStr");
+    monthStr: string              = this.message("prc.monthStr");
+    dayStr: string                = this.message("prc.dayStr");
     province: object = [];
     city: object = [];
     month: object = [
@@ -48,22 +49,23 @@ export class RegisterComponent extends LangComponent implements OnInit {
         { id: 11, value: "11" },
         { id: 12, value: "12" }
     ];
-    day: object = [];
-    selectProvince: object = {};
-    selectCity: object = {};
-    selectProvinceCode: string = "110000";
-    selectCityCode: string = "110100";
-    selectMonth: number = 1;
-    selectDay: number = 1;
-    selectMediaType: object = null;
-    selectBirthDayMonth: number = 2;
-    selectBirthDayDay: number = 5;
-    userName: string = "";
-    mobilePhone: string = "";
-    mobilePhoneDisplay: string = this.formatMobilePhone(this.mobilePhone);
+    day: object                        = [];
+    selectProvince: object             = {};
+    selectCity: object                 = {};
+    selectProvinceCode: string         = "110000";
+    selectCityCode: string             = "110100";
+    selectMonth: number                = 1;
+    selectDay: number                  = 1;
+    selectMediaType: object            = null;
+    selectBirthDayMonth: number        = 2;
+    selectBirthDayDay: number          = 5;
+    userName: string                   = "";
+    mobilePhone: string                = "";
+    mobilePhoneDisplay: string         = this.formatMobilePhone(this.mobilePhone);
     vertifyCode: string = "";
     mediaName: string = "default media";
     responsible: string = "Charge";
+    address: string  ="";
     userType: number | string = "";
     loadProvince: boolean = false;
     loadCity: boolean = false;
@@ -275,6 +277,7 @@ export class RegisterComponent extends LangComponent implements OnInit {
             mediaType: this.selectMediaType ? this.selectMediaType['value_id'] : '',
             mediaName: this.mediaName,
             responsible: this.responsible,
+            address: this.address,
             wineType: []
         };
         const wineType = this.typeData['wineType'];
