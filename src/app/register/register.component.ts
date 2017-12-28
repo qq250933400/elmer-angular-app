@@ -86,6 +86,7 @@ export class RegisterComponent extends LangComponent implements OnInit {
         this.userType = this.userInfo['userType'];
         this.mobilePhone = this.userInfo.mobilePhone;
         this.mobilePhoneDisplay = this.formatMobilePhone(this.mobilePhone);
+        this.address = this.userInfo.address;
         if (this.userType === undefined || this.userType === null || this.userType.toString().length <= 0) {
             this.router.navigate(['prc', 'start']);
         }

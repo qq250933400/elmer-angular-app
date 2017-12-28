@@ -43,7 +43,7 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
                 }
             }).catch((err) => {
                 this.isLoading = false;
-                alert(err['msg']);
+                alert(this.isObject(err) ? err['msg'] : err);
                 if(err['data'] && err['data']['outlogin']){
                      window.location.href = this.appService.baseURL + "index.php?m=Prc&c=Index&a=index";
                 }

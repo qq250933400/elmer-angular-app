@@ -10,9 +10,13 @@ export class AppService{
     NewsType = 0;
     NewsTitle = '';
     SearchNewsValue = '';
-    baseURL: string = "http://localhost/prc/";
-    // baseURL: string = "http://www.hopiano.com/prc/";
+    // baseURL: string = "http://localhost/prc/";
+    baseURL: string = "http://tmall.dmeww.com/prcmedia/";
     constructor(private http: Http, private UserInfo: clsUserInfo) {
+        const key = 'elmerBaseURL';
+        if(window[key] && window[key].length >0){
+            this.baseURL = window[key];
+        }
     }
     getUserInfomation():Promise<object>{
         return new Promise((resolve, reject)=>{
@@ -37,6 +41,7 @@ export class AppService{
                             this.UserInfo.responsible = userData['responsible'];
                             this.UserInfo.wineType = userData['wineTypes'];
                             this.UserInfo.status = userData['status'];
+                            this.UserInfo.address = userData['address'];
                             resolve(this.UserInfo);
                         }else {
                             reject(data['info']);

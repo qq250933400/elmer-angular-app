@@ -90,3 +90,6 @@ window.language = {
         }
     }
 };
+
+
+window.elmerBaseURL = "http://tmall.dmeww.com/prcmedia/";

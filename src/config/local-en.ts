@@ -2,7 +2,7 @@ export default {
     app_title:"Media Clup",
     prc: {
         start: {
-            mediaType: 'Media/KOL',
+            mediaType: 'Media',
             wineLovers: 'Wine Lovers',
             tipText:"This is the first time you login Pernod media center, please select your identity"
         },

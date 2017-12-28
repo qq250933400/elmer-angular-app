@@ -2,7 +2,7 @@ export default {
     app_title:"媒体俱乐部",
     prc: {
         start: {
-            mediaType: '媒体/KOL',
+            mediaType: '媒体',
             wineLovers: '洋酒爱好者',
             tipText:"这是你第一次登录保乐力加媒体中心，请选择您的身份"
         },
