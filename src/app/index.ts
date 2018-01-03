@@ -5,6 +5,7 @@ import { StatusComponent } from './status/status.component';
 import { FinishComponent } from './finish/finish.component';
 import { NewsComponent } from './news/news.component';
 import { DetailComponent } from './detail/detail.component';
+import { LoginComponent } from './login/login.component';
 //************Services************* */
 import { NewsService } from './news/news.service';
 
@@ -19,7 +20,8 @@ export const appRouters = [
     { path: 'prc/news/:type/:search', component: NewsComponent },
     { path: 'prc/news', component: NewsComponent },
     { path: 'prc/detail', component: DetailComponent },
-    { path: 'prc/detail/:detailID', component: DetailComponent }
+    { path: 'prc/detail/:detailID', component: DetailComponent },
+    { path: "prc/login", component: LoginComponent }
 ];
 
 export const appDeclaretions = [

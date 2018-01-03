@@ -36,18 +36,23 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
                     } else if(parseInt(userData.status.toString(),10) !== 1 && userData.userType == UserType.MediaUser) {
                         this.router.navigate(['prc', 'status']);
                     } else if(userData.userType == UserType.WineLover) {
-                        this.router.navigate(['prc', 'finish']);
+                        //this.router.navigate(['prc', 'finish']);
                     }
                 } else {
-                    window.location.href = this.appService.baseURL + "index.php?m=Prc&c=Index&a=index";
+                    window.location.href = this.serviceURLs.loginURL;
                 }
             }).catch((err) => {
                 this.isLoading = false;
                 alert(this.isObject(err) ? err['msg'] : err);
-                if(err['data'] && err['data']['outlogin']){
-                     window.location.href = this.appService.baseURL + "index.php?m=Prc&c=Index&a=index";
+                if(err && err['redirect'] && this.isString(err['redirect'])) {
+                    const pathStr = err['redirect'];
+                    const pathArr = pathStr.replace(/^\//,'').replace(/\/$/,'').split('/');
+                    this.router.navigate(pathArr);
                 }
-                console.error("ResponseError:" + err, this.appService.getUserInfo());
+                if(err && err['outlogin']){
+                     window.location.href = this.serviceURLs.loginURL;
+                }
+                console.error("ResponseError:" + err);
             });
     }
     getMessage(key: string): string {

@@ -135,10 +135,16 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     this.loadNewData();
                 }).catch((err)=>{
                     this.isLogin = false;
-                    alert(err['msg']);
+                    alert(err ? (err['msg'] ? err['msg'] + "===>>onNews" : err+ "===>>onNews") : 'Unknow Error');
                     const myUrl = encodeURIComponent(this.appService.baseURL + 'Public/prc/index.html#/prc/news');
-                    if(err['data'] && err['data']['outlogin']){
-                        window.location.href=this.appService.baseURL + "index.php?m=Prc&c=Index&a=index&url="+myUrl;        
+                    if(err && err['data'] && err['data']['outlogin']){
+                        window.location.href=this.serviceURLs + "&url="+myUrl;        
+                    }else{
+                        if(err['redirect'] && this.isString(err['redirect'])) {
+                            const pathStr = err['redirect'];
+                            const pathArr = pathStr.replace(/^\//,'').replace(/\/$/,'').split('/');
+                            this.router.navigate(pathArr);
+                        }
                     }
                 });
         } else {
@@ -229,6 +235,11 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     this.pageCount = parseInt(data['pageCount']);                   
                 }else {
                     alert(data.info);
+                    if(data['redirect'] && this.isString(data['redirect'])) {
+                        const pathStr = data['redirect'];
+                        const pathArr = pathStr.replace(/^\//,'').replace(/\/$/,'').split('/');
+                        this.router.navigate(pathArr);
+                    }
                     if(data['toStatus']) {
                         this.router.navigate(['prc', 'status']);
                     }else if(data['toFinish']){

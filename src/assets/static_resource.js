@@ -90,6 +90,14 @@ window.language = {
         }
     }
 };
-
-
-window.elmerBaseURL = "http://tmall.dmeww.com/prcmedia/";
+window.elmer = {
+    debug            : false,
+    dev: {
+        baseURL      : "http://localhost/prc/",
+        loginURL     : "http://localhost/prc/index.php?m=Prc&c=Index&a=index"
+    },
+    prod: {
+        baseURL      : "http://tmall.dmeww.com/prcmedia/",
+        loginURL     : "http://tmall.dmeww.com/prcmedia/index.php?m=Prc&c=Index&a=index"
+    }
+};

@@ -2,20 +2,30 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable, OnInit } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { CoreComponent } from '../core/core.component';
+import { CommonComponent } from '../core/common.component';
 import { IUserInfo, clsUserInfo } from '../interface/prc.interface';
+import { IExConfig } from '../interface/config.interface';
 // import { Promise } from 'q';
 
 @Injectable()
-export class AppService{
+export class AppService extends CommonComponent{
     NewsType = 0;
     NewsTitle = '';
     SearchNewsValue = '';
     // baseURL: string = "http://localhost/prc/";
     baseURL: string = "http://tmall.dmeww.com/prcmedia/";
     constructor(private http: Http, private UserInfo: clsUserInfo) {
-        const key = 'elmerBaseURL';
-        if(window[key] && window[key].length >0){
-            this.baseURL = window[key];
+        super();
+        const key = 'elmer';
+        const devConfig = window[key];
+        if(devConfig && this.isObject(devConfig)){
+            const devObj: IExConfig = devConfig;
+            const serviceURL = devObj.debug ? devObj.dev.baseURL : devObj.prod.baseURL;
+            if(/^(http[s]{0,1}\:\/\/)/i.test(serviceURL)) {
+                this.baseURL = serviceURL;
+            }else {
+                serviceURL && serviceURL.length > 0 && console.error("服务接口请求地址必须是【http://】或【https://】开头！");
+            }
         }
     }
     getUserInfomation():Promise<object>{
@@ -44,7 +54,10 @@ export class AppService{
                             this.UserInfo.address = userData['address'];
                             resolve(this.UserInfo);
                         }else {
-                            reject(data['info']);
+                            reject({
+                                msg: data['info'],
+                                ...data
+                            });
                         }
                     }else {
                         reject(res.statusText);
