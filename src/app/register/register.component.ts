@@ -5,6 +5,7 @@ import { AppService } from '../../services/app.service';
 import { PinYinService } from '../../services/pinyin.service';
 import { IUserInfo,clsUserInfo } from '../../interface/prc.interface';
 import { IRegsiterTypeData, clsRegisterType,UserType } from '../../interface/prc.interface';
+import { isNull } from 'util';
 
 /* eslint-disable */
 @Component({
@@ -33,6 +34,7 @@ export class RegisterComponent extends LangComponent implements OnInit {
     cityStr: string               = this.message("prc.cityStr");
     monthStr: string              = this.message("prc.monthStr");
     dayStr: string                = this.message("prc.dayStr");
+    mastInput: string             = this.getMessage("mastInput");
     province: object = [];
     city: object = [];
     month: object = [
@@ -290,6 +292,10 @@ export class RegisterComponent extends LangComponent implements OnInit {
             }
         });
         data.wineType = selectedWine;
+        if(this.isNull(data.userName) || this.isNull(data.mobilePhone) || this.isNull(data.mediaType) || this.isNull(data.mediaName)) {
+            alert(this.getMessage("maskInputError"));
+            return ;
+        }
         this.isShowLoading = true;
         this.appService.updateUserInfo(data).then((res: Response) => {
             this.isShowLoading = false;

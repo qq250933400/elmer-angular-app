@@ -60,6 +60,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     isPressed                = false;
     moveAnimation            = false;
     contentHeight            = "";
+    newsDataList             = [];
     constructor(private ele:ElementRef,
         private sev: NewsService,
         private router: Router,
@@ -85,6 +86,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     ngOnInit():void{
         this.newsData = new Array<clsNewsInfo>();
+        this.newsDataList = [];
         this.activeRouter.params.subscribe((data:Params)=>{
             const type = data['type'];
             const value = data['search'] || '';
@@ -93,6 +95,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             this.newsType = type>=0 ? type:0;
             this.appService.setSearchNewsValue(value);
             this.newsData = new Array<clsNewsInfo>();
+            this.newsDataList = [];
             this.page = 0;
             this.pageCount = 1;
             //-----------
@@ -134,11 +137,11 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     this.loadSwapperData();
                     this.loadNewData();
                 }).catch((err)=>{
-                    this.isLogin = false;
-                    alert(err ? (err['msg'] ? err['msg'] + "===>>onNews" : err+ "===>>onNews") : 'Unknow Error');
+                    this.isLogin = false;console.log(err);
+                    alert(err ? (err['msg'] ? err['msg'] : err) : 'Unknow Error');
                     const myUrl = encodeURIComponent(this.appService.baseURL + 'Public/prc/index.html#/prc/news');
-                    if(err && err['data'] && err['data']['outlogin']){
-                        window.location.href=this.serviceURLs + "&url="+myUrl;        
+                    if(err && err['outlogin']){
+                        window.location.href=this.serviceURLs.loginURL + "&url="+myUrl;        
                     }else{
                         if(err['redirect'] && this.isString(err['redirect'])) {
                             const pathStr = err['redirect'];
@@ -213,14 +216,19 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
             this.showNewsLoading = true;
             if(this.page == 0 && this.newsData.length>0){
                 this.newsData = new Array<clsNewsInfo>();
+                this.newsDataList = [];
             }
             this.sev.getNewsList(this.page, this.isLastNews).then((data:IResponseData)=>{
                 this.showNewsLoading = false;
                 if(data.success){
                     const tmpData: object[] = <object[]>data.data;
-                    if(this.page === 0) this.newsData = new Array<clsNewsInfo>();
+                    if(this.page === 0) {
+                        this.newsData = new Array<clsNewsInfo>();
+                        this.newsDataList = [];
+                    }
                     this.page = this.page + 1;
                     tmpData && tmpData.map((news)=>{
+                        
                         const tmpNews = {
                             title: news['title'],
                             titleImageUrl: this.appService.baseURL + news['headimage'],
@@ -228,9 +236,12 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                             description: news['description'],
                             id: news['news_id']
                         };
-                        tmpNews["downloadurl"] = news['downloadurl'];
-                        tmpNews["downloadpwd"] = news['downloadpwd'];
-                        this.newsData.push(tmpNews);
+                        if(this.newsDataList.indexOf(tmpNews.id)<0) {
+                            tmpNews["downloadurl"] = news['downloadurl'];
+                            tmpNews["downloadpwd"] = news['downloadpwd'];
+                            this.newsData.push(tmpNews);
+                            this.newsDataList.push(tmpNews.id);
+                        }
                     });
                     this.pageCount = parseInt(data['pageCount']);                   
                 }else {
@@ -256,8 +267,9 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     newsItemClick(news:clsNewsInfo):void{
         if(!this.showGetSource){
+            this.router.navigate(['prc', 'detail', news.id]);
             // this.router.navigateByUrl("prc/detail/"+news.id);
-            window.location.href = this.appService.baseURL + "Public/prc/index.html#/prc/detail/" + news.id;
+           // window.location.href = this.appService.baseURL + "Public/prc/index.html#/prc/detail/" + news.id;
         } else {
             news.isChecked = !news.isChecked;
             this.selectNews = new Array<clsNewsInfo>();
@@ -280,7 +292,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     onScroll(event:Event):void{
         if (Math.abs(this.wrapper.scrollHeight - this.wrapper.clientHeight - this.wrapper.scrollTop)<=8 && this.newsType>=0){
-            if(!this.showGetSource){
+            if(!this.showGetSource && !this.isLastNews){
                 this.loadNewData();
             }
         }
@@ -298,6 +310,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         this.page = 0;
         this.currentNewsType = this.message("prc.allNews");
         this.newsData = new Array<clsNewsInfo>();
+        this.newsDataList = [];
         this.loadNewData();
     }
     handleOnDownloadClick():void{
@@ -383,9 +396,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         this.emailError = !/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z]{2,5}$/.test(this.toEmail);
     }
     handleOnSwapperItemClick(data:clsSwappe):void{
-        const url = data.url;
-        // this.router.navigateByUrl(url);
-        window.location.href = url;
+        this.router.navigate(data.url.split('/'));
     }
     handleOnWrapperTouchStart(event):void{
         const posY = event.touches ? event.touches[0].clientY : event.clientY;
@@ -417,7 +428,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
         const mTop = this.wrapper['style']['marginTop'];
         const nTop = this.mouseY - this.pressY;//mTop.length<= 0 ? 0 : mTop.replace("px",'');
         if(!this.moveAnimation){
-            if(nTop>30 && this.newsType == 0){
+            if(nTop>60 && this.newsType == 0){
                 if(!this.isLastNews) {
                     this.isLastNews = true;
                     this.showWrapper = true;
@@ -427,6 +438,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                     //this.wrapper['style']['marginTop'] = 0;
                     // this.router.navigateByUrl("prc/news/0");
                     this.newsData = new Array<clsNewsInfo>();
+                    this.newsDataList = [];
                     this.loadNewData();
                     return;
                 }

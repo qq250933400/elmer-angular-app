@@ -1,32 +1,18 @@
 import 'rxjs/add/operator/toPromise';
 import { Injectable, OnInit } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
-import { CoreComponent } from '../core/core.component';
-import { CommonComponent } from '../core/common.component';
+import { CoreService } from '../core/service.component';
 import { IUserInfo, clsUserInfo } from '../interface/prc.interface';
-import { IExConfig } from '../interface/config.interface';
+ 
 // import { Promise } from 'q';
 
 @Injectable()
-export class AppService extends CommonComponent{
+export class AppService extends CoreService{
     NewsType = 0;
     NewsTitle = '';
     SearchNewsValue = '';
-    // baseURL: string = "http://localhost/prc/";
-    baseURL: string = "http://tmall.dmeww.com/prcmedia/";
     constructor(private http: Http, private UserInfo: clsUserInfo) {
-        super();
-        const key = 'elmer';
-        const devConfig = window[key];
-        if(devConfig && this.isObject(devConfig)){
-            const devObj: IExConfig = devConfig;
-            const serviceURL = devObj.debug ? devObj.dev.baseURL : devObj.prod.baseURL;
-            if(/^(http[s]{0,1}\:\/\/)/i.test(serviceURL)) {
-                this.baseURL = serviceURL;
-            }else {
-                serviceURL && serviceURL.length > 0 && console.error("服务接口请求地址必须是【http://】或【https://】开头！");
-            }
-        }
+        super(http);
     }
     getUserInfomation():Promise<object>{
         return new Promise((resolve, reject)=>{
@@ -52,6 +38,8 @@ export class AppService extends CommonComponent{
                             this.UserInfo.wineType = userData['wineTypes'];
                             this.UserInfo.status = userData['status'];
                             this.UserInfo.address = userData['address'];
+                            this.UserInfo.level = userData['level'];
+                            this.UserInfo.regType = userData['regtype'];
                             resolve(this.UserInfo);
                         }else {
                             reject({
@@ -70,6 +58,9 @@ export class AppService extends CommonComponent{
                 reject(err.message);
             });
         });
+    }
+    setUserInfo(userData: clsUserInfo): void{
+        this.UserInfo = userData;
     }
     setUserType(type: number|string): void{
         this.UserInfo.userType = type;
@@ -90,8 +81,7 @@ export class AppService extends CommonComponent{
         return this.http.get(`${this.baseURL}index.php?m=Prc&c=Index&a=getBaseList`).toPromise();
     }
     updateUserInfo(data): Promise<object>{
-        const core = new CoreComponent();
-        core.extend(this.UserInfo, data);
+        this.extend(this.UserInfo, data);
         const url = `${this.baseURL}index.php?m=Prc&c=Index&a=editinfo`;
         let headers = new Headers(); //其实不表明 json 也可以, ng 默认好像是 json
         headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -102,30 +92,6 @@ export class AppService extends CommonComponent{
             submitData,
             { headers }
         ).toPromise();
-    }
-    urlEncodeObject(data) {
-        const mArr = [];
-        const cv = new CoreComponent();
-        for(const key in data) {
-            const tmpValue = data[key];
-            if(cv.isArray(tmpValue) && tmpValue !== null){
-                for(const subKey in tmpValue) {
-                    const subValue = tmpValue[subKey];
-                    if(cv.isString(subValue) || cv.isNumber(subValue)) {
-                        const subData = [key+"[]",encodeURIComponent(subValue)].join('=');
-                        mArr.push(subData);
-                    }else if(cv.isObject(subValue)) {
-                        const subData = [key+"[]",this.urlEncodeObject(subValue)].join('=');
-                        mArr.push(subData);
-                    }
-                }
-            }else {
-                const tmpData = [key, encodeURIComponent(tmpValue)].join('=');
-                mArr.push(tmpData);
-            }
-        }
-        return mArr.join('&');
-        // return encodeURIComponent(JSON.stringify(data));
     }
     getNewsTypes(): Promise<object>{
         return this.http.get(`${this.baseURL}index.php?m=Prc&c=Index&a=gettypes`).toPromise();

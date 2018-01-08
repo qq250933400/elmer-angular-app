@@ -52,4 +52,14 @@ export class CommonComponent {
             }
         }
     }
+    isNull(obj:any): boolean{
+        if(obj === undefined || obj === null) {
+            return true;
+        }else {
+            if((this.isString(obj) || this.isNumber(obj)) && obj.toString().length<=0){
+                return true;
+            }
+        }
+        return false;
+    }
 }

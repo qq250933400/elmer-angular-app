@@ -8,5 +8,6 @@ export interface IExConfigURL {
 export interface IExConfig {
     debug?  : boolean,
     dev?: IExConfigURL,
-    prod?: IExConfigURL
+    prod?: IExConfigURL,
+    loginToActivity?: boolean;
 };

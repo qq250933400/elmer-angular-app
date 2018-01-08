@@ -28,7 +28,9 @@ export interface IUserInfo {
     mediaName: string,
     responsible: string,
     address?: string,
-    wineType: number[]
+    wineType: number[],
+    level: string,
+    regType: string
 };
 export class clsUserInfo  implements IUserInfo {
     userType: number | string;
@@ -46,6 +48,8 @@ export class clsUserInfo  implements IUserInfo {
     address?: string;
     wineType: number[];
     status: number;
+    level: string;
+    regType: string;
 }
 
 export interface ISwapper {

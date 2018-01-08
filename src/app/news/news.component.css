@@ -49,12 +49,15 @@
     padding: 0;
     height: 30px;
     line-height: 15px;
-    font-size:13px;
+    font-size:14px;
     color:#5A5A5A;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: pre-line;
     font-weight: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 .new_list li a > div > i{
     display: block;
@@ -68,10 +71,16 @@
 
 .new_list li a > div > span {
     display: block;
-    height: 40px;
+    height: 52px;
     line-height: 18px;
-    font-size:12px;
-    color:#5A5A5A;
+    font-size: 12px;
+    color: #5A5A5A;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .new_list li .active::before,
 .newLoadAction li a::before{

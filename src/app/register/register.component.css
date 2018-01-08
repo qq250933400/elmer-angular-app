@@ -209,3 +209,15 @@
 .prc_reg_sumit:active {
     background: #3f8cc7;
 }
+.mondatory {
+    position: relative;
+}
+.mondatory > i{
+    display: inline-block !important;
+}
+/* .mondatory::after {
+    content: "*";
+    color:red;
+    display: inline-block;
+    top: 0;
+} */

@@ -15,10 +15,12 @@
 .login_input_area input{
     margin: 0 auto;
     width: 80%;
+    font-size: 14px;
 }
 
 .login_input_area input[type=password]{
     margin-top: 20px;
+    font-size: 14px;
 }
 
 .login_button {

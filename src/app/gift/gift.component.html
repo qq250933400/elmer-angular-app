@@ -1,0 +1,84 @@
+<app-nav [noMenuBar]="true">
+     <div class="gift">
+        <ul class="giftOptions">
+            <li class="gift_tip">贰</li>
+            <li class="gift_tip">零</li>
+            <li class="gift_tip"></li>
+            <li class="gift_button" (click)="handleOnChoseClick(0)"></li>
+            <li class="gift_tip"></li>
+            <li class="gift_button1" (click)="handleOnChoseClick(0)"></li>
+            <li class="gift_tip">壹</li>
+            <li class="gift_tip">捌</li>
+            <li class="gift_button" (click)="handleOnChoseClick(1)"></li>
+            <li class="gift_tip">新</li>
+            <li class="gift_button" (click)="handleOnChoseClick(1)"></li>
+            <li class="gift_tip"></li>
+            <li class="gift_tip"></li>
+            <li class="gift_tip">春</li>
+            <li class="gift_tip"></li>
+            <li class="gift_button1" (click)="handleOnChoseClick(2)"></li>
+            <li class="gift_tip"></li>
+            <li class="gift_button" (click)="handleOnChoseClick(2)"></li>
+            <li class="gift_tip">大</li>
+            <li class="gift_tip">吉</li>
+        </ul>
+        <h4 *ngIf="!isHiddenHomeTips" class="giftCompany">保乐力加新年礼</h4>
+        <span *ngIf="!isHiddenHomeTips" class="giftMouto">选出您钟爱的那一瓶，我们为您送上！</span>
+     </div>
+     <div *ngIf="isShowConfirm" class="information">
+        <p class="info_Tips">
+            <span>请确认您的快递信息，</span>
+            <span>以便我们能将礼品准确地送到您手上！</span>
+        </p>
+        <ul class="reg_fields gift_fields">
+            <li><span class="mondatory">{{field_Name}}</span><div><input type="text" (ngModelChange)="inputChange($event,'userName')" [ngModel]="userName" [value]="userName"/></div></li>
+            <li><span class="mondatory">{{field_Phone}}</span><div><input name="username" (keydown)="mobileKeyDown($event)" (ngModelChange)="mobileChange($event)" [ngModel]="mobilePhoneDisplay" type="text" [value]="mobilePhoneDisplay" /></div></li>
+            <li>
+                <span style="line-height: 30px !important;">{{field_Location}}</span>
+                <div>
+                    <div class="prc_select prc_reg_province">
+                        <select [(ngModel)]="selectProvince" (change)="provinceChange()">
+                            <option *ngFor="let pro of province" [ngValue]="pro" >{{pro.name}}</option>
+                        </select>
+                        <i>{{provinceStr}}</i>
+                    </div>
+                    <div class="prc_select prc_reg_city">
+                        <select [(ngModel)]="selectCity">
+                            <option *ngFor="let tmpCity of city" [ngValue]="tmpCity">{{tmpCity.name}}</option>
+                        </select>
+                        <i>{{cityStr}}</i>
+                    </div>
+                </div>
+            </li>
+            <li><span>{{field_Address}}</span><div><input type="text" placeholder="详细地址" (ngModelChange)="inputChange($event,'address')" [ngModel]="address" [value]="address"/></div></li>
+        </ul>
+        <input (click)="handleOnConfirmClick()" type="button" value="确认" class="info_confirm" />
+     </div>
+     <div *ngIf="isShowChoseGift" class="giftChose" (click)="handleONgiftMaskClick()">
+         <div>
+            <div class="giftContext" (click)="handleOniftContextClick($event)">
+                <img src="{{ChoseGift.image}}"/>
+                <div>
+                    <h4>{{ChoseGift.title}}</h4>
+                    <span>{{ChoseGift.desc}}</span>
+                    <i>{{ChoseGift.size}}</i>
+                    <input type="button" (click)="handleOnConfirmGift()" class="info_confirm gift_confirm" value="选定好了" />
+                </div>
+            </div>
+        </div>
+     </div>
+    <div *ngIf="isShowFinish" class="information">
+        <p class="info_Tips info_finish_tips">
+            <span>您的选择我们已经收到！</span>
+            <span>礼品将会在今日寄出，</span>
+            <span>注意查收哦！</span>
+        </p>
+        <p class="info_Tips info_finish_tips1">
+                <span>我们已在媒体俱乐部中</span>
+                <span>为您准备了我们的最新动态，</span>
+                <span>现在去看看吧！</span>
+            </p>
+        <input  type="button" (click)="goNews()" value="进入首页" class="info_confirm info_finish_button" />
+    </div>
+     <app-loading *ngIf="isShowLoading"></app-loading>
+</app-nav>

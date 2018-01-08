@@ -6,9 +6,10 @@ import { FinishComponent } from './finish/finish.component';
 import { NewsComponent } from './news/news.component';
 import { DetailComponent } from './detail/detail.component';
 import { LoginComponent } from './login/login.component';
+import { GiftComponent } from './gift/gift.component';
 //************Services************* */
 import { NewsService } from './news/news.service';
-
+import { GiftService } from './gift/gift.service';
 export const LangComponent = clsLangComponent;
 
 export const appRouters = [
@@ -21,7 +22,8 @@ export const appRouters = [
     { path: 'prc/news', component: NewsComponent },
     { path: 'prc/detail', component: DetailComponent },
     { path: 'prc/detail/:detailID', component: DetailComponent },
-    { path: "prc/login", component: LoginComponent }
+    { path: "prc/login", component: LoginComponent },
+    { path: "prc/gift", component: GiftComponent }
 ];
 
 export const appDeclaretions = [
@@ -30,9 +32,11 @@ export const appDeclaretions = [
     StatusComponent,
     FinishComponent,
     NewsComponent,
-    DetailComponent
+    DetailComponent,
+    GiftComponent
 ];
 
 export const AppServices = [
-    NewsService
+    NewsService,
+    GiftService
 ];

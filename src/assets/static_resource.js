@@ -15,7 +15,7 @@ window.language = {
                 field_Location: "City：",
                 field_Birthday: "Birthday：",
                 field_MediaType: "Media Type：",
-                field_MediaName: "Media Name",
+                field_MediaName: "Media Name：",
                 field_Responsible: "Responsible section",
                 field_Responsible_des: "Separated by ，",
                 field_Interested: "Prefer",
@@ -91,7 +91,8 @@ window.language = {
     }
 };
 window.elmer = {
-    debug            : false,
+    debug            : true,
+    loginToActivity  : true,
     dev: {
         baseURL      : "http://localhost/prc/",
         loginURL     : "http://localhost/prc/index.php?m=Prc&c=Index&a=index"

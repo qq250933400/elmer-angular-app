@@ -29,25 +29,27 @@ export class NavComponent extends LangComponent implements OnInit {
         document.body.style.overflow="hidden";
     }
     ngOnInit():void{
-        this.appService.getNewsTypes().then((res: Response)=>{
-            if(res.status === 200){
-                const data = res.json();
-                if(data['success']){
-                    const listData: object[] = data['data'];
-                    listData.map((item,key)=>{
-                        const mStr = this.local === 'zh' ? item['value1'] : item['value2'];
-                        listData[key]['value1'] = mStr;
-                    });
-                    this.menuData = [
-                        { value_id: -1, value1: this.message('prc.allNews') },
-                        ...listData
-                    ];
+        if(!this.noMenuBar){
+            this.appService.getNewsTypes().then((res: Response)=>{
+                if(res.status === 200){
+                    const data = res.json();
+                    if(data['success']){
+                        const listData: object[] = data['data'];
+                        listData.map((item,key)=>{
+                            const mStr = this.local === 'zh' ? item['value1'] : item['value2'];
+                            listData[key]['value1'] = mStr;
+                        });
+                        this.menuData = [
+                            { value_id: -1, value1: this.message('prc.allNews') },
+                            ...listData
+                        ];
+                    }
                 }
-            }
-        }).catch((err:Error)=>{
-            console.log(err.message);
-        });
-        this.searchValue = window['decodeURIComponent'](this.appService.getSearchNewsValue());
+            }).catch((err:Error)=>{
+                console.log(err.message);
+            });
+            this.searchValue = window['decodeURIComponent'](this.appService.getSearchNewsValue());
+        }
     }
     menuClick():void{
         this.showMenu = !this.showMenu;
