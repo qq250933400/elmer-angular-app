@@ -173,13 +173,13 @@ export class GiftComponent extends LangComponent implements OnInit {
                 title: "绝对伏特加",
                 desc:"uncover隐夜装限量版",
                 size:"750ml 一瓶",
-                image: "assets/gift/jacobs.png",
+                image: "assets/gift/ftj.png",
                 id: "Gift_absolutvodka"
             });
             this.GiftList.push({
                 title: "杰卡斯J小调系列",
-                desc:"Little J清妍<br/>葡萄红酒750ml 一瓶",
-                size:"",
+                desc:"Little J清妍 桃红葡萄酒750ml 一瓶",
+                size:"Little J轻盈 红葡萄酒750ml 一瓶",
                 image: "assets/gift/little_j.png",
                 id: "Gift_littleJ"
             });

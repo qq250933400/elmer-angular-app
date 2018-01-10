@@ -91,7 +91,7 @@ window.language = {
     }
 };
 window.elmer = {
-    debug            : true,
+    debug            : false,
     loginToActivity  : true,
     dev: {
         baseURL      : "http://localhost/prc/",

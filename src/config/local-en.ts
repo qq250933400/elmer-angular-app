@@ -70,7 +70,8 @@ export default {
         monthStr:"Month",
         dayStr:"Day",
         latestnews:"Latest News",
-        allNews: "All News"
+        allNews: "All News",
+        knowMore:"More"
     },
     loading: "Loading…",
     gotop: "Top"
