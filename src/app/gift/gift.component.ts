@@ -95,34 +95,6 @@ export class GiftComponent extends LangComponent implements OnInit {
             this.isShowLoading = false;
             this.checkUserAuth();
         }
-        this.giftService.getActivityInfo().then((data)=>{
-            if(data['isInActivity']) {
-                const info = data['ActivityInfo']
-                this.selectProvinceCode = info['province_code'];
-                this.selectCityCode = info['city_code'];
-                this.address = info['address'];
-                this.userName = !this.isNull(info['user_name']) ? info['user_name'] : this.userName;
-                this.mobilePhone = !this.isNull(info['mobile_phone']) ? info['mobile_phone'] : this.mobilePhone;
-                this.mobilePhoneDisplay = this.mobilePhone;
-                if(this.province && this.province.length>0){
-                    for(var key in this.province){
-                        if(this.province[key]['code']===this.selectProvinceCode){
-                            this.selectProvince = this.province[key];
-                        }
-                    }
-                    this.getCity(true);
-                }
-                if(!data['isConfirm']){
-                    this.isShowConfirm = true;
-                    this.isHiddenHomeTips = true;
-                }else {
-                    this.isHiddenHomeTips = true;
-                    this.isShowFinish = true;
-                }
-            }
-        }).catch((err)=>{
-            console.log(err);
-        });
     }
     checkUserAuth():void{
         this.isVIP = /^(vip)/i.test(this.userInfo.level);
@@ -144,6 +116,42 @@ export class GiftComponent extends LangComponent implements OnInit {
             alert("您没有参加此活动的资格！");
             this.route.navigate(['prc', 'news']);
         }
+        this.giftService.getActivityInfo().then((data)=>{
+            if(data['isInActivity']) {
+                const info = data['ActivityInfo']
+                this.selectProvinceCode = info['province_code'];
+                this.selectCityCode = info['city_code'];
+                this.address = info['address'];
+                this.userName = !this.isNull(info['user_name']) ? info['user_name'] : this.userName;
+                this.mobilePhone = !this.isNull(info['mobile_phone']) ? info['mobile_phone'] : this.mobilePhone;
+                this.mobilePhoneDisplay = this.mobilePhone;
+                if(this.province && this.province.length>0){
+                    for(var key in this.province){
+                        if(this.province[key]['code']===this.selectProvinceCode){
+                            this.selectProvince = this.province[key];
+                        }
+                    }
+                    this.getCity(true);
+                }
+                if(!this.isNull(info['act_prod_id'])){
+                    this.GiftList.map((item:IGift)=>{
+                        if(item.id === info['act_prod_id']){
+                            this.ChoseGift = item;
+                        }
+                        console.log(item.id,'------giftList', info['act_prod_id']);
+                    });
+                }
+                if(!data['isConfirm']){
+                    this.isShowConfirm = true;
+                    this.isHiddenHomeTips = true;
+                }else {
+                    this.isHiddenHomeTips = true;
+                    this.isShowFinish = true;
+                }
+            }
+        }).catch((err)=>{
+            console.log(err);
+        });
     }
     loadGiftList():void{
         if (this.isVIP) {
@@ -163,7 +171,7 @@ export class GiftComponent extends LangComponent implements OnInit {
             });
             this.GiftList.push({
                 title: "巴黎之花",
-                desc:"特级干型香槟<br/>迈阿密城市限量版",
+                desc:"特级干型香槟 迈阿密城市限量版",
                 size:"750ml 一瓶",
                 image: "assets/gift/perrier_jouet.png",
                 id: "Gift_perrier"
@@ -178,7 +186,7 @@ export class GiftComponent extends LangComponent implements OnInit {
             });
             this.GiftList.push({
                 title: "杰卡斯J小调系列",
-                desc:"Little J清妍 桃红葡萄酒750ml 一瓶",
+                desc:"Little J清妍 桃红葡萄酒750ml 一瓶 和 ",
                 size:"Little J轻盈 红葡萄酒750ml 一瓶",
                 image: "assets/gift/little_j.png",
                 id: "Gift_littleJ"
@@ -314,6 +322,11 @@ export class GiftComponent extends LangComponent implements OnInit {
                 this.isHiddenHomeTips = true;
             }
         });
+    }
+    handleOnConfirmGiftClose():void{
+        this.isShowChoseGift = false;
+        this.isShowConfirm = false;
+        this.isHiddenHomeTips = false;
     }
     inputChange(event,key):void{
         // console.log(event);

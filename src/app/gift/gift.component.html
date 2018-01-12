@@ -6,19 +6,19 @@
             <li class="gift_tip"></li>
             <li class="gift_button" (click)="handleOnChoseClick(0)"></li>
             <li class="gift_tip"></li>
-            <li class="gift_button1" (click)="handleOnChoseClick(0)"></li>
+            <li class="gift_button1 gift_button6" (click)="handleOnChoseClick(0)"></li>
             <li class="gift_tip">壹</li>
             <li class="gift_tip">捌</li>
-            <li class="gift_button" (click)="handleOnChoseClick(1)"></li>
+            <li class="gift_button gift_button5" (click)="handleOnChoseClick(1)"></li>
             <li class="gift_tip">新</li>
-            <li class="gift_button" (click)="handleOnChoseClick(1)"></li>
+            <li class="gift_button gift_button4" (click)="handleOnChoseClick(1)"></li>
             <li class="gift_tip"></li>
             <li class="gift_tip"></li>
             <li class="gift_tip">春</li>
             <li class="gift_tip"></li>
-            <li class="gift_button1" (click)="handleOnChoseClick(2)"></li>
+            <li class="gift_button1 gift_button3" (click)="handleOnChoseClick(2)"></li>
             <li class="gift_tip"></li>
-            <li class="gift_button" (click)="handleOnChoseClick(2)"></li>
+            <li class="gift_button gift_button2" (click)="handleOnChoseClick(2)"></li>
             <li class="gift_tip">大</li>
             <li class="gift_tip">吉</li>
         </ul>
@@ -26,6 +26,12 @@
         <span *ngIf="!isHiddenHomeTips" class="giftMouto">选出您钟爱的那一瓶，我们为您送上！</span>
      </div>
      <div *ngIf="isShowConfirm" class="information">
+        <div class="informationProd">
+            <span>您选的是</span>
+            <div>
+                {{ChoseGift.title}}{{ChoseGift.desc}}{{ChoseGift.size}}
+            </div>
+        </div>
         <p class="info_Tips">
             <span>请确认您的快递信息，</span>
             <span>以便我们能将礼品准确地送到您手上！</span>
@@ -52,7 +58,8 @@
             </li>
             <li><span>{{field_Address}}</span><div><input type="text" placeholder="详细地址" (ngModelChange)="inputChange($event,'address')" [ngModel]="address" [value]="address"/></div></li>
         </ul>
-        <input (click)="handleOnConfirmClick()" type="button" value="确认" class="info_confirm" />
+        <input (click)="handleOnConfirmClick()" type="button" value="确认" style="width:150px;" class="info_confirm" />
+        <input type="button" (click)="handleOnConfirmGiftClose()" style="margin-top:10px;width:150px;" class="info_confirm" value="重新选" />
      </div>
      <div *ngIf="isShowChoseGift" class="giftChose" (click)="handleONgiftMaskClick()">
          <div>
@@ -62,7 +69,8 @@
                     <h4>{{ChoseGift.title}}</h4>
                     <span>{{ChoseGift.desc}}</span>
                     <i>{{ChoseGift.size}}</i>
-                    <input type="button" (click)="handleOnConfirmGift()" class="info_confirm gift_confirm" value="选定好了" />
+                    <input type="button" (click)="handleOnConfirmGift()" class="info_confirm gift_confirm" value="选好了" />
+                    <input type="button" (click)="handleOnConfirmGiftClose()" class="info_confirm gift_confirm" value="重新选" />
                 </div>
             </div>
         </div>

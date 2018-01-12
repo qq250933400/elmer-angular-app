@@ -45,6 +45,26 @@
     background: url("../../assets/prc/giftButton.png") !important;
     background-size: 100% 100% !important;
 }
+.gift_button2 {
+    background: url("../../assets/prc/giftButton4.png") !important;
+    background-size: 100% 100% !important;
+}
+.gift_button3 {
+    background: url("../../assets/prc/giftButton1.png") !important;
+    background-size: 100% 100% !important;
+}
+.gift_button4 {
+    background: url("../../assets/prc/giftButton2.png") !important;
+    background-size: 100% 100% !important;
+}
+.gift_button5 {
+    background: url("../../assets/prc/giftButton3.png") !important;
+    background-size: 100% 100% !important;
+}
+.gift_button6 {
+    background: url("../../assets/prc/giftButton5.png") !important;
+    background-size: 100% 100% !important;
+}
 .gift_button {
     animation: giftAni 2s linear infinite reverse;
     -webkit-animation: giftAni 2s linear infinite reverse;
@@ -101,13 +121,14 @@
     position: absolute;
     left: 0;
     top: 0;
+    overflow-y:auto;
 }
 .info_Tips {
     margin: 0;
     display: block;
     text-align: center;
     padding: 40px 0;
-    margin-top: 20px;
+    padding-top: 30px;
 }
 .info_Tips > span {
     display: block;
@@ -185,8 +206,8 @@
 }
 .giftContext>div h4{
     display: block;
-    margin: 8px 0;
-    font-size: 16px;
+    margin: 6px 0;
+    font-size: 14px;
     color:#fff;
 }
 .giftContext>div span,
@@ -217,4 +238,21 @@
 }
 .info_finish_button {
     margin-top:20px;
+}
+.informationProd {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+.informationProd > span {
+    font-size: 16px;
+    color:#fff;
+    display: block;
+    text-align: center;
+}
+.informationProd > div {
+    font-size: 15px;
+    color:#fff;
+    margin-top: 10px;
 }
