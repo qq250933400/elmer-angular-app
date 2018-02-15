@@ -4,7 +4,7 @@ export default {
         start: {
             mediaType: '媒体',
             wineLovers: '洋酒爱好者',
-            tipText:"这是你第一次登录保乐力加媒体中心，请选择您的身份"
+            tipText:"这是您第一次登录保乐力加媒体俱乐部，请选择您的身份"
         },
         register: {
             title:"完善你的个人信息，让我们更了解你",

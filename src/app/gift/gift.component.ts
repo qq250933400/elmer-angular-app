@@ -179,8 +179,8 @@ export class GiftComponent extends LangComponent implements OnInit {
         } else {
             this.GiftList.push({
                 title: "绝对伏特加",
-                desc:"uncover隐夜装限量版",
-                size:"750ml 一瓶",
+                desc:"uncover星夜装限量版",
+                size:"700ml 一瓶",
                 image: "assets/gift/ftj.png",
                 id: "Gift_absolutvodka"
             });

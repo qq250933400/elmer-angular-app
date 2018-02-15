@@ -16,6 +16,13 @@ export class CoreService extends CommonComponent {
     };
     constructor(private baseHttp:Http){
         super();
+        const mapConfigCallBack = "setConfig";
+        this.reloadConfig();
+        window[mapConfigCallBack] = ()=>{
+            this.reloadConfig();
+        };
+    }
+    reloadConfig():void{
         const key = 'elmer';
         const devConfig = window[key];
         if(devConfig && this.isObject(devConfig)){

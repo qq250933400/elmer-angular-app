@@ -31,12 +31,16 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
                 const userData = this.appService.getUserInfo();
                 if (userData.userID > 0) {
                     // alert(userData.userType);return;
-                    if(parseInt(userData.status.toString(),10) === 1  && userData.userType == UserType.MediaUser) {
+                    if(parseInt(userData.status.toString(),10) === 1 && userData.userType == UserType.MediaUser) {
                         this.router.navigate(['prc', 'register']);
                     } else if(parseInt(userData.status.toString(),10) !== 1 && userData.userType == UserType.MediaUser) {
                         this.router.navigate(['prc', 'status']);
                     } else if(userData.userType == UserType.WineLover) {
-                        //this.router.navigate(['prc', 'finish']);
+                         //stay on this page
+                         console.log(userData);
+                    }else{
+                        console.log(userData);
+                        alert("获取用户身份失败！");
                     }
                 } else {
                     window.location.href = this.serviceURLs.loginURL;
@@ -50,7 +54,7 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
                     this.router.navigate(pathArr);
                 }
                 if(err && err['outlogin']){
-                     window.location.href = this.serviceURLs.loginURL;
+                    window.location.href = this.serviceURLs.loginURL;
                 }
                 console.error("ResponseError:" + err);
             });
@@ -64,7 +68,7 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
         this.appService.setMediaUserType(UserType.MediaUser)
             .then((data)=>{
                 this.isLoading = false;
-                if(data['success']) {
+                if(data['success']){
                     this.router.navigateByUrl("prc/register");
                 }else {
                     alert(data['info']);

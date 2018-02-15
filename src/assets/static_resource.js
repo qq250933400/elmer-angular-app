@@ -102,3 +102,7 @@ window.elmer = {
         loginURL     : "http://tmall.dmeww.com/prcmedia/index.php?m=Prc&c=Index&a=index"
     }
 };
+
+//when resource file loaded raise event to call angular method to reload config
+typeof window.setConfig === 'function' && window.setConfig();
+typeof window.setLangConfig === 'function' && window.setLangConfig();

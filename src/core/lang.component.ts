@@ -1,5 +1,6 @@
 import { zh, en } from '../config/index';
 import { CoreComponent } from './core.component';
+import { tmpdir } from 'os';
 const tempLanguage = {
     en: {
         'app.home.win8.title': 'SystemManger',    
@@ -21,10 +22,14 @@ export class LangComponent extends CoreComponent {
     constructor() {
         super();
         const lang = window.sessionStorage && window.sessionStorage.getItem('local');
+        const langConfig = "setLangConfig";
         this.data = tempLanguage;
         this.local = lang !== undefined && lang !== null && lang.length > 0 ? lang : 'zh';
         this.curData = this.data[this.local];
         this.mergeFromGlobal();
+        window[langConfig] = ()=>{
+            this.mergeFromGlobal();
+        };
     }
     setLanguage(key:string, refresh: boolean = false):void{
         if(window.sessionStorage) {
