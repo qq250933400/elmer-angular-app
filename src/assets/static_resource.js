@@ -91,11 +91,11 @@ window.language = {
     }
 };
 window.elmer = {
-    debug            : true,
+    debug            : false,
     loginToActivity  : true,
     dev: {
-        baseURL      : "http://localhost/prc/",
-        loginURL     : "http://localhost/prc/index.php?m=Prc&c=Index&a=index"
+        baseURL      : "http://localhost/media/",
+        loginURL     : "http://localhost/media/index.php?m=Prc&c=Index&a=index"
     },
     prod: {
         baseURL      : "http://tmall.dmeww.com/prcmedia/",

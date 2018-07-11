@@ -31,17 +31,22 @@ export class StartComponent extends LangComponent implements OnInit, OnChanges {
                 const userData = this.appService.getUserInfo();
                 if (userData.userID > 0) {
                     // alert(userData.userType);return;
-                    if(parseInt(userData.status.toString(),10) === 1 && userData.userType == UserType.MediaUser) {
-                        this.router.navigate(['prc', 'register']);
-                    } else if(parseInt(userData.status.toString(),10) !== 1 && userData.userType == UserType.MediaUser) {
-                        this.router.navigate(['prc', 'status']);
-                    } else if(userData.userType == UserType.WineLover) {
-                         //stay on this page
-                         console.log(userData);
+                    if(userData.userType == UserType.MediaUser){
+                        if(parseInt(userData.status.toString(),10) === 1){
+                            this.router.navigate(['prc', 'register']);
+                        }else if(parseInt(userData.status.toString(),10) === -1){
+                            this.router.navigate(['prc', 'register']);
+                        }else if(parseInt(userData.status.toString(),10) === 0){
+                            this.router.navigate(['prc', 'status']);
+                        }else if(parseInt(userData.status.toString(),10) === -2){
+                            return;
+                        }else{
+                            alert("获取用户身份失败！");
+                        }
                     }else{
-                        console.log(userData);
-                        alert("获取用户身份失败！");
-                    }
+                        //洋酒爱好者 不做跳转
+                        console.log("洋酒爱好者");
+                    } 
                 } else {
                     window.location.href = this.serviceURLs.loginURL;
                 }

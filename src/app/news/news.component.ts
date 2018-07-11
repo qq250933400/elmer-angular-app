@@ -175,7 +175,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
     }
     loadSwapperData():void{
         this.showWrapperLoading = true;
-        this.appService.getWrapperNews()
+        this.appService.getWrapperNews(this.local)
             .then((data)=>{
                 const wrapperData = data['data'];
                 this.showWrapperLoading = false;
@@ -218,7 +218,7 @@ export class NewsComponent extends LangComponent implements AfterViewInit, OnIni
                 this.newsData = new Array<clsNewsInfo>();
                 this.newsDataList = [];
             }
-            this.sev.getNewsList(this.page, this.isLastNews).then((data:IResponseData)=>{
+            this.sev.getNewsList(this.page, this.isLastNews, this.local).then((data:IResponseData)=>{
                 this.showNewsLoading = false;
                 if(data.success){
                     const tmpData: object[] = <object[]>data.data;

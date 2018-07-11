@@ -198,9 +198,9 @@ export class AppService extends CoreService{
             });
         });
     }
-    getWrapperNews():Promise<object>{
+    getWrapperNews(locale:String):Promise<object>{
         return new Promise((resolve,reject)=>{
-            this.http.get(`${this.baseURL}index.php?m=Prc&c=News&a=wrapperinfo`).toPromise()
+            this.http.get(`${this.baseURL}index.php?m=Prc&c=News&a=wrapperinfo&lang=${locale}`).toPromise()
                 .then((res:Response)=>{
                     if(res.status === 200) {
                         resolve(res.json());

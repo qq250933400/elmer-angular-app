@@ -17,9 +17,9 @@ export class NewsService{
         const encodeCallBack =window['encodeURIComponent'];
         this.searchValue = encodeCallBack ? encodeCallBack(value||''): value;
     }
-    getNewsList(StartPage,islastNews: boolean = false):Promise<object>{
+    getNewsList(StartPage,islastNews: boolean = false, locale: String = "zh"):Promise<object>{
         const gPage = StartPage>=0 ? StartPage : 0;
-        const local = sessionStorage.getItem('local') || 'zh';
+        const local = sessionStorage.getItem('local') || locale ||'zh' ;
         let url = `${this.appService.baseURL}index.php?m=Prc&c=News&a=getNewsList&page=${gPage}&psize=${this.listPageSize}`;
         url += `&newstype=${this.searchNewsType}&search=${this.searchValue}`;
         url += islastNews ? "&islastnews=1":'';
