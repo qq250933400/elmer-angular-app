@@ -91,7 +91,7 @@ window.language = {
     }
 };
 window.elmer = {
-    debug            : false,
+    debug            : true,
     loginToActivity  : true,
     dev: {
         baseURL      : "http://localhost/media/",

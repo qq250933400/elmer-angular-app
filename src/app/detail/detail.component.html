@@ -1,7 +1,10 @@
 <app-nav (downloadClick)="handleOnDownloadClick()" [noMenuBar]="MenuBarDisable">
     <div style="display:block;height:100%;overflow-x:hidden;overflow-y:auto">
         <div class="detail">
-            <img *ngFor="let ct of content" title="{{ct.title}}" src="{{baseUrl}}{{ct.url}}" />
+            <div *ngFor="let ct of content">
+                <img *ngIf='ct.type=="image"' title="{{ct.title}}" src="{{baseUrl}}{{ct.url}}" />
+                <video *ngIf='ct.type=="video"' id="newsVideo{{ct.index}}" preload="auto" width="100%" height="300" playsinline webkit-playinline x5-playinline></video>
+            </div>
         </div>
     </div>
     <app-dbtn>

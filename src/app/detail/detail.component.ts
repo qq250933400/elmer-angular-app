@@ -60,8 +60,10 @@ export class DetailComponent extends LangComponent implements OnInit, AfterViewI
             this.newsID = detailID;
             this.appService.getNewsDetail(detailID).then((data)=>{
                 if(data['success']){
+                    var newsData = data['data'];
+                    newsData['appID'] = data['tencentVideoAppID'];
                     this.showLoading = false;
-                    this.newsData = data['data'];
+                    this.newsData = newsData;
                     const title = this.newsData['title'];
                     document.title = title;
                     this.downloadURL = this.newsData['downloadurl'];
@@ -106,6 +108,27 @@ export class DetailComponent extends LangComponent implements OnInit, AfterViewI
             this.moreInfo = moreInfo;
             this.removeAnimationEnd(moreInfo,this.handleOnMoreInfoAnimationEnd);
             this.animationEnd(moreInfo,this.handleOnMoreInfoAnimationEnd);
+        }
+        if(this.isArray(this.content) && this.content.length>0){
+            for(var i=0;i<this.content.length;i++){
+                var tmpItem = this.content[i];
+                if(tmpItem['type'] == "video" && !tmpItem['attachedPlayer']){
+                    var videoID = "newsVideo" + tmpItem['index'];
+                    const videoDOM = this.ele.nativeElement.querySelector("#"+videoID);
+                    if(videoDOM){
+                        var oldValue = videoDOM.getAttribute("attached", 1);
+                        if(oldValue != "1"){
+                            videoDOM.setAttribute("attached", 1);
+                            var player = TCPlayer(videoID, { // player-container-id 为播放器容器ID，必须与html中一致
+                                fileID: tmpItem['value'], // 请传入需要播放的视频filID 必须
+                                appID: this.newsData['appID'], // 请传入点播账号的appID 必须
+                                autoplay: false //是否自动播放
+                                //其他参数请在开发文档中查看
+                            });
+                        }
+                    }
+                }
+            }
         }
     }
     handleOnDownloadClick():void{
