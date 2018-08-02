@@ -62,7 +62,7 @@
     position: fixed;
     left:0;
     top:0;
-    z-index: 888;
+    z-index: 9999;
     background: rgba(10,10,10,0.3);
 }
 .more_info>div {
@@ -211,4 +211,8 @@
         opacity: 1;
         -ms-transform: translateY(0);
     }
+}
+.vjs-error-display,
+.tcplayer {
+    z-index: 1 !important;
 }

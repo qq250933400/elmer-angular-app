@@ -1,11 +1,9 @@
-.dbtn,
-.dbtn>div{
+.dbtn{
     display: block;
     height: 45px;
     line-height: 45px;
 }
-
-.dbtn>div{
+.dbtn{
     position: fixed;
     text-align: center;
     width: 100%;
@@ -13,13 +11,14 @@
     bottom:0;
     padding:1px;
     background: #fff;
+    z-index: 1000;
     box-shadow: 0 2px 3px rgba(10,10,10,0.3);
     -webkit-box-shadow: 0 2px 5px rgba(10,10,10,0.3);
     -moz-box-shadow: 0 2px 5px rgba(10,10,10,0.3);
     -ms-box-shadow: 0 2px 5px rgba(10,10,10,0.3);
 }
-.dbtn>div .btn_download,
-.dbtn>div .btn_email{
+.dbtn .btn_download,
+.dbtn .btn_email{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -31,7 +30,7 @@
     width:100px;
 }
 
-.dbtn>div .btn_email{
+.dbtn .btn_email{
     display: inline-block;
     margin-left: 20px;
 }

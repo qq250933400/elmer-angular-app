@@ -98,8 +98,8 @@ window.elmer = {
         loginURL     : "http://localhost/media/index.php?m=Prc&c=Index&a=index"
     },
     prod: {
-        baseURL      : "http://tmall.dmeww.com/prcmedia/",
-        loginURL     : "http://tmall.dmeww.com/prcmedia/index.php?m=Prc&c=Index&a=index"
+        baseURL      : "http://tmall.dmeww.com/media/",
+        loginURL     : "http://tmall.dmeww.com/media/index.php?m=Prc&c=Index&a=index"
     }
 };
 
